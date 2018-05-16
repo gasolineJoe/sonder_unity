@@ -28,11 +28,10 @@ public class Spawner: MonoBehaviour
         }
 
         GameObject newHero = Spawn(hero);
-        newHero.GetComponent<HeroMovement>().TravelTo(spawnedRooms[0].GetComponent<Room>());
+        newHero.GetComponent<RoomTraveller>().TravelTo(spawnedRooms[0].GetComponent<Room>());
 
-        GameObject camera = GameObject.FindWithTag("MainCamera");
-        CompleteCameraController cameraController = camera.GetComponent<CompleteCameraController>();
-        cameraController.player = newHero;
+        GameObject.FindWithTag("MainCamera").GetComponent<CompleteCameraController>().player = newHero;
+        GameObject.FindWithTag("GameLogic").GetComponent<InputHandler>().SetControlledPerson(newHero.GetComponent<Person>());
     }
 
     private GameObject SpawnRoomWithPosition(GameObject room, float x, float y)

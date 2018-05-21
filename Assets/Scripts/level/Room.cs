@@ -26,5 +26,4 @@ public class Room : MonoBehaviour
 public struct RoomData
 {
     public bool active;
-    public Door[] doors;
 }

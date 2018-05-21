@@ -20,10 +20,10 @@ public class Spawner: MonoBehaviour
         for (int i = 0; i < doorsStartRoom.Length; i++)
         {
             GameObject newRoom = SpawnRoomWithPosition(rooms[Random.Range(0, rooms.Length)], 20 * (i + 1), 0);
-            doorsStartRoom[i].ConnectTo(newRoom.GetComponent<Room>().data.doors[0]);
+            doorsStartRoom[i].ConnectTo(newRoom.GetComponentsInChildren<Door>()[0]);
             newRoom.name = "room "+i;
-            for (int j=1; j< newRoom.GetComponent<Room>().data.doors.Length; j++) {
-                Destroy(newRoom.GetComponent<Room>().data.doors[j].gameObject);
+            for (int j=1; j< newRoom.GetComponentsInChildren<Door>().Length; j++) {
+                Destroy(newRoom.GetComponentsInChildren<Door>()[j].gameObject);
             }
         }
 

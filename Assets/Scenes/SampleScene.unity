@@ -174,7 +174,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 519420028}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7d742f1abffd79640b1331dd9fc7cc07, type: 3}
+  m_Script: {fileID: 11500000, guid: 2dcfabe89db7f6e4fb471341c90ec2ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 0}
@@ -235,10 +235,11 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 1046596434}
+  - component: {fileID: 1046596436}
   - component: {fileID: 1046596435}
   m_Layer: 0
   m_Name: GameLogic
-  m_TagString: Untagged
+  m_TagString: GameLogic
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -264,7 +265,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 1046596433}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a6f62cea8c260cb4fb1d681923378ac8, type: 3}
+  m_Script: {fileID: 11500000, guid: d220cd677b6d0c74582c24d983cd0eb2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   hero: {fileID: 1255930961900636, guid: 9535b7a6974b8914ab10007793da4f29, type: 2}
@@ -274,3 +275,17 @@ MonoBehaviour:
   - {fileID: 1044183128127214, guid: 29240ff712e2d324593f071c10daf1b8, type: 2}
   - {fileID: 1628799104414752, guid: e1b55bf22a17b7d4988d74e6b4b5d021, type: 2}
   spawnedRooms: []
+--- !u!114 &1046596436
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1046596433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a9acf77c9677a974b8bdbc84ac0cbca6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  xAxis: 0
+  yAxis: 0
+  controlledPerson: {fileID: 0}

@@ -2,9 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Door : MonoBehaviour
+public class Door : Usable
 {
     public Door destination;
+
+    public override UsableType Identify()
+    {
+        return UsableType.Door;
+    }
 
     public void ConnectTo(Door door)
     {
@@ -15,7 +20,7 @@ public class Door : MonoBehaviour
         }
         else
         {
-            //throw (new System.Exception("This door is already connected to "+destination+"! Use DropConnection if you know what you are doing, smartass"));
+            throw (new System.Exception("This door is already connected to "+destination+"! Use DropConnection if you know what you are doing, smartass"));
         }
     }
 

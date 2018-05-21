@@ -101,7 +101,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4467857262746530}
   m_Layer: 0
-  m_Name: doors
+  m_Name: objects
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -283,8 +283,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     active: 0
-    doors:
-    - {fileID: 114628419419304160}
 --- !u!114 &114628419419304160
 MonoBehaviour:
   m_ObjectHideFlags: 1

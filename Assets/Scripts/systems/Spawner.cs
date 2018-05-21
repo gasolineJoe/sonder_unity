@@ -18,6 +18,9 @@ public class Spawner: MonoBehaviour
         newStartRoom.name = "start";
 
         for (int i = 0; i < doorsStartRoom.Length; i++)
+
+
+
         {
             GameObject newRoom = SpawnRoomWithPosition(rooms[Random.Range(0, rooms.Length)], 20 * (i + 1), 0);
             doorsStartRoom[i].ConnectTo(newRoom.GetComponentsInChildren<Door>()[0]);

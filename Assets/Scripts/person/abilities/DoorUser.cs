@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 
 public class DoorUser: MonoBehaviour
@@ -11,7 +10,8 @@ public class DoorUser: MonoBehaviour
     {
         foreach (GameObject something in collisions)
         {
-            if (something.CompareTag("Door"))
+            Usable usable = something.GetComponent<Usable>();
+            if (usable.Identify().Equals(Usable.UsableType.Door))
             {
                 Vector3 newPos = something.GetComponent<Door>().destination.transform.position;
                 transform.position = newPos;
@@ -24,7 +24,9 @@ public class DoorUser: MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        collisions.Add(collision.gameObject);
+        //if (collision.GetComponent<Usable>() != null) {
+            collisions.Add(collision.gameObject);
+        //}
     }
 
     private void OnTriggerExit2D(Collider2D collision)

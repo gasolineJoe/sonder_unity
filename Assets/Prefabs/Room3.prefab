@@ -85,7 +85,7 @@ GameObject:
   - component: {fileID: 61809829436059410}
   m_Layer: 0
   m_Name: door
-  m_TagString: Door
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -119,7 +119,7 @@ GameObject:
   - component: {fileID: 61540423962150792}
   m_Layer: 0
   m_Name: door (1)
-  m_TagString: Door
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -134,7 +134,7 @@ GameObject:
   - component: {fileID: 4817945552671038}
   - component: {fileID: 114081610424144734}
   - component: {fileID: 61972223697223488}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Room3
   m_TagString: Room
   m_Icon: {fileID: 0}
@@ -243,7 +243,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1628799104414752}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 4.8015113, y: 2.146284, z: 0}
+  m_LocalPosition: {x: 11.308054, y: 4.7621717, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4116195048261776}
@@ -339,7 +339,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   data:
-    size: 20
     active: 0
     doors:
     - {fileID: 114306719178496236}

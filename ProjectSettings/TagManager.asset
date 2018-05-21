@@ -5,9 +5,8 @@ TagManager:
   serializedVersion: 2
   tags:
   - GameWorld
-  - Room
-  - Door
   - GameLogic
+  - Room
   layers:
   - Default
   - TransparentFX
@@ -17,7 +16,7 @@ TagManager:
   - UI
   - 
   - 
-  - 
+  - Bounds
   - 
   - 
   - 

@@ -1,8 +1,6 @@
 ﻿using UnityEngine;
 
 public class RoomTraveller : MonoBehaviour {
-
-    //public float speed = 5f;
     [SerializeField]
     public Room currentRoom = null;
 

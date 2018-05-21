@@ -18,9 +18,6 @@ public class Spawner: MonoBehaviour
         newStartRoom.name = "start";
 
         for (int i = 0; i < doorsStartRoom.Length; i++)
-
-
-
         {
             GameObject newRoom = SpawnRoomWithPosition(rooms[Random.Range(0, rooms.Length)], 20 * (i + 1), 0);
             doorsStartRoom[i].ConnectTo(newRoom.GetComponentsInChildren<Door>()[0]);
@@ -32,6 +29,7 @@ public class Spawner: MonoBehaviour
 
         GameObject newHero = Spawn(hero);
         newHero.GetComponent<RoomTraveller>().TravelTo(spawnedRooms[0].GetComponent<Room>());
+        newHero.transform.position = new Vector3(newHero.transform.position.x, spawnedRooms[0].GetComponentInChildren<Floor>().GetFloor(), newHero.transform.position.z);
 
         GameObject.FindWithTag("MainCamera").GetComponent<CompleteCameraController>().player = newHero;
         GameObject.FindWithTag("GameLogic").GetComponent<InputHandler>().SetControlledPerson(newHero.GetComponent<Person>());

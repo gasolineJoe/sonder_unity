@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 231f2120e97673d43b52163355581d8d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - Hero: {fileID: 1255930961900636, guid: 9535b7a6974b8914ab10007793da4f29, type: 2}
+  - startRoom: {fileID: 1628799104414752, guid: e1b55bf22a17b7d4988d74e6b4b5d021,
+      type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

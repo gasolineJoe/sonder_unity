@@ -237,6 +237,9 @@ GameObject:
   - component: {fileID: 1046596434}
   - component: {fileID: 1046596436}
   - component: {fileID: 1046596435}
+  - component: {fileID: 1046596437}
+  - component: {fileID: 1046596439}
+  - component: {fileID: 1046596438}
   m_Layer: 0
   m_Name: GameLogic
   m_TagString: GameLogic
@@ -289,3 +292,47 @@ MonoBehaviour:
   xAxis: 0
   yAxis: 0
   controlledPerson: {fileID: 0}
+--- !u!114 &1046596437
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1046596433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 314770b2b8f94784b89e2851318cace1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  assets: {fileID: 11400000, guid: adf8c356c62d5df428ab5ce21c1e8cd1, type: 2}
+--- !u!114 &1046596438
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1046596433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 1077351063, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_HorizontalAxis: Horizontal
+  m_VerticalAxis: Vertical
+  m_SubmitButton: Submit
+  m_CancelButton: Cancel
+  m_InputActionsPerSecond: 10
+  m_RepeatDelay: 0.5
+  m_ForceModuleActive: 0
+--- !u!114 &1046596439
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1046596433}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: -619905303, guid: f70555f144d8491a825f0804e09c671c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 5

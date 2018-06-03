@@ -96,7 +96,6 @@ GameObject:
   serializedVersion: 5
   m_Component:
   - component: {fileID: 4180029547539562}
-  - component: {fileID: 114015721855625492}
   - component: {fileID: 61815202903209914}
   m_Layer: 8
   m_Name: SampleRoom
@@ -213,19 +212,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114015721855625492
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1946935896437334}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7012ed524a29c9a46be4d289ece427ee, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  data:
-    active: 0
 --- !u!212 &212573352253783490
 SpriteRenderer:
   m_ObjectHideFlags: 1

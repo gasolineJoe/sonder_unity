@@ -22,10 +22,6 @@ GameObject:
   - component: {fileID: 212353488114598792}
   - component: {fileID: 61745496596442820}
   - component: {fileID: 50971415322227390}
-  - component: {fileID: 114823625891807976}
-  - component: {fileID: 114416674124884964}
-  - component: {fileID: 114475742430097972}
-  - component: {fileID: 114645212981361374}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Untagged
@@ -91,53 +87,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
---- !u!114 &114416674124884964
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1255930961900636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cc356f8b0a9b21419a11f4a6dea662d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 0.1
---- !u!114 &114475742430097972
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1255930961900636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 13fa2abb486b18342a0ab5da3a108392, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  collisions: []
---- !u!114 &114645212981361374
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1255930961900636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 72b5c099d332db84dada0683cdfd34df, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  currentRoom: {fileID: 0}
---- !u!114 &114823625891807976
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1255930961900636}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b82d589162a9f94fa56f015717e2b04, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!212 &212353488114598792
 SpriteRenderer:
   m_ObjectHideFlags: 1

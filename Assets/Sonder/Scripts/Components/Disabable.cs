@@ -8,7 +8,6 @@ public class Disabable
 
     void SetSubRenderersEnabled(bool isEnabled)
     {
-        //= GetComponentsInChildren<SpriteRenderer>();
         for (int i = 0; i < sprites.Length; i++)
         {
             sprites[i].enabled = isEnabled;

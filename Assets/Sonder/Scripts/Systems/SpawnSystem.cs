@@ -26,7 +26,6 @@ public class SpawnSystem : IEcsInitSystem
         for (int i = 0; i < newStartRoom.doors.Count; i++)
         {
             RoomComponent newRoom = SpawnRoomWithPosition(rooms[Random.Range(0, rooms.Length)], 20 * (i + 1), 0);
-
             newStartRoom.doors[i].ConnectTo(newRoom.doors[0]);
         }
 
@@ -40,8 +39,8 @@ public class SpawnSystem : IEcsInitSystem
         _world.AddComponent<InputControlled>(dude);
         _world.AddComponent<ObjectUser>(dude);
 
-        newHero.GetComponent<RoomTraveller>().TravelTo(spawnedRooms[0].GetComponent<Room>());
-        newHero.transform.position = new Vector3(newHero.transform.position.x, newStartRoom.floor, newHero.transform.position.z);
+        human.travelTo(newStartRoom);
+        human.tr.position = new Vector3(newHero.transform.position.x, newStartRoom.floor, newHero.transform.position.z);
 
         GameObject.FindWithTag("MainCamera").GetComponent<CompleteCameraController>().player = newHero;
     }
@@ -49,13 +48,20 @@ public class SpawnSystem : IEcsInitSystem
     private RoomComponent SpawnRoomWithPosition(GameObject room, float x, float y)
     {
         GameObject newRoom = Spawn(room);
-        newRoom.GetComponent<Transform>().position = new Vector3(x, y, 0);
-        newRoom.GetComponent<Room>().SetActive(false);
         spawnedRooms.Add(newRoom);
 
-        var roomParameters = _world.CreateEntityWith<RoomComponent>();
+        var roomEntity = _world.CreateEntity();
+        var roomParameters = _world.AddComponent<RoomComponent>(roomEntity);
+        var disabable = _world.AddComponent<Disabable>(roomEntity);
         roomParameters.size = newRoom.GetComponent<Collider2D>().bounds.size.x;
+        roomParameters.disabable = disabable;
+        roomParameters.disabable.sprites = newRoom.GetComponentsInChildren<SpriteRenderer>();
+        roomParameters.tr = newRoom.GetComponent<Transform>();
+        roomParameters.tr.position = new Vector3(x, y, 0);
         registerDoors(newRoom, roomParameters);
+
+        roomParameters.disabable.SetActive(false);
+
         return roomParameters;
     }
 

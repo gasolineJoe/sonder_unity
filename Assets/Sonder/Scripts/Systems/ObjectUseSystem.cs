@@ -33,7 +33,7 @@ public class ObjectUseSystem : IEcsRunSystem
                     newPos = new Vector3(newPos.x, newRoom.floor, newPos.z);
                     human.tr.position = newPos;
 
-                    //traveller.TravelTo(newRoom);
+                    human.travelTo(newRoom);
                 }
             }
             user.usePressed = false;

@@ -1,12 +1,14 @@
 ﻿using UnityEngine;
+using UnityEditor;
 
-public class Room : MonoBehaviour
+public class Disabable
 {
     public bool active;
+    public SpriteRenderer[] sprites;
 
     void SetSubRenderersEnabled(bool isEnabled)
     {
-        SpriteRenderer[] sprites = GetComponentsInChildren<SpriteRenderer>();
+        //= GetComponentsInChildren<SpriteRenderer>();
         for (int i = 0; i < sprites.Length; i++)
         {
             sprites[i].enabled = isEnabled;

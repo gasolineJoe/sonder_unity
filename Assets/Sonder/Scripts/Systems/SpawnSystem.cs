@@ -31,8 +31,6 @@ public class SpawnSystem : IEcsInitSystem
         }
 
         GameObject newHero = Spawn(hero);
-        newHero.GetComponent<RoomTraveller>().TravelTo(spawnedRooms[0].GetComponent<Room>());
-        newHero.transform.position = new Vector3(newHero.transform.position.x, spawnedRooms[0].GetComponentInChildren<Floor>().GetFloor(), newHero.transform.position.z);
 
         var dude = _world.CreateEntity();
         var human = _world.AddComponent<Human>(dude);
@@ -42,6 +40,8 @@ public class SpawnSystem : IEcsInitSystem
         _world.AddComponent<InputControlled>(dude);
         _world.AddComponent<ObjectUser>(dude);
 
+        newHero.GetComponent<RoomTraveller>().TravelTo(spawnedRooms[0].GetComponent<Room>());
+        newHero.transform.position = new Vector3(newHero.transform.position.x, newStartRoom.floor, newHero.transform.position.z);
 
         GameObject.FindWithTag("MainCamera").GetComponent<CompleteCameraController>().player = newHero;
     }

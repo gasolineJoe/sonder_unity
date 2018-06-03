@@ -12,12 +12,12 @@ public class MoveProcessing : IEcsRunSystem
         for (int i = 0; i < movableHumans.EntitiesCount; i++)
         {
             var movable = movableHumans.Components2[i];
-            var tr = movableHumans.Components1[i].tr;
+            var human = movableHumans.Components1[i];
+            var tr = human.tr;
             float movementX = movable.acceleration * movable.speed;
-            float position = tr.localPosition.x + movementX;
-            // + GetComponent<Collider2D>().bounds.size.x;
-            //float roomSize = GetComponent<RoomTraveller>().currentRoom.GetComponent<Collider2D>().bounds.size.x;
-            //if (position < roomSize && transform.localPosition.x + movementX > 0)
+            float position = tr.localPosition.x + movementX + human.size;
+            float roomSize = human.currentRoom.size;
+            if (position < roomSize && tr.localPosition.x + movementX > 0)
             tr.position = new Vector3(tr.position.x + movementX, tr.position.y, tr.position.z);
         }
     }

@@ -22,7 +22,14 @@ public class SpawnSystem : IEcsInitSystem
         this.rooms = _world.startupData.rooms;
 
         GameObject newStartRoom = SpawnRoomWithPosition(startRoom, 0, 0);
+
+        var sroom = _world.CreateEntity();
+        var sroomParameters = _world.AddComponent<RoomComponent>(sroom);
+        sroomParameters.size = newStartRoom.GetComponent<Collider2D>().bounds.size.x;
+
         Door[] doorsStartRoom = newStartRoom.GetComponentsInChildren<Door>();
+        registerDoors(newStartRoom, sroomParameters);
+       
         newStartRoom.name = "start";
 
         for (int i = 0; i < doorsStartRoom.Length; i++)
@@ -34,16 +41,25 @@ public class SpawnSystem : IEcsInitSystem
             {
                 Object.Destroy(newRoom.GetComponentsInChildren<Door>()[j].gameObject);
             }
+
+            var room = _world.CreateEntity();
+            var roomParameters = _world.AddComponent<RoomComponent>(room);
+            roomParameters.size = newRoom.GetComponent<Collider2D>().bounds.size.x;
+
+            registerDoors(newRoom, roomParameters);
         }
 
         GameObject newHero = Spawn(hero);
         newHero.GetComponent<RoomTraveller>().TravelTo(spawnedRooms[0].GetComponent<Room>());
         newHero.transform.position = new Vector3(newHero.transform.position.x, spawnedRooms[0].GetComponentInChildren<Floor>().GetFloor(), newHero.transform.position.z);
+
         var dude = _world.CreateEntity();
         var human = _world.AddComponent<Human>(dude);
+        human.tr = newHero.transform;
+        human.currentRoom = sroomParameters;
         var movable = _world.AddComponent<Movable>(dude);
         _world.AddComponent<InputControlled>(dude);
-        human.tr = newHero.transform;
+        
 
         GameObject.FindWithTag("MainCamera").GetComponent<CompleteCameraController>().player = newHero;
         GameObject.FindWithTag("GameLogic").GetComponent<InputHandler>().SetControlledPerson(newHero.GetComponent<Person>());
@@ -61,6 +77,18 @@ public class SpawnSystem : IEcsInitSystem
     private GameObject Spawn(GameObject gameObject)
     {
         return (GameObject)GameObject.Instantiate(gameObject, GameObject.FindWithTag("GameWorld").transform);
+    }
+
+    private void registerDoors(GameObject room, RoomComponent roomComponent)
+    {
+        Door[] doorsStartRoom = room.GetComponentsInChildren<Door>();
+        foreach (Door door in doorsStartRoom)
+        {
+            var drcomponent = _world.CreateEntityWith<DoorComponent>();
+            drcomponent.tr = door.gameObject.transform;
+            drcomponent.size = 3;
+            roomComponent.doors.Add(drcomponent);
+        }
     }
 
     public void Destroy()

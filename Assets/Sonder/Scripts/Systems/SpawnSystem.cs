@@ -21,32 +21,13 @@ public class SpawnSystem : IEcsInitSystem
         this.startRoom = _world.startupData.startRoom;
         this.rooms = _world.startupData.rooms;
 
-        GameObject newStartRoom = SpawnRoomWithPosition(startRoom, 0, 0);
+        RoomComponent newStartRoom = SpawnRoomWithPosition(startRoom, 0, 0);
 
-        var sroom = _world.CreateEntity();
-        var sroomParameters = _world.AddComponent<RoomComponent>(sroom);
-        sroomParameters.size = newStartRoom.GetComponent<Collider2D>().bounds.size.x;
-
-        Door[] doorsStartRoom = newStartRoom.GetComponentsInChildren<Door>();
-        registerDoors(newStartRoom, sroomParameters);
-       
-        newStartRoom.name = "start";
-
-        for (int i = 0; i < doorsStartRoom.Length; i++)
+        for (int i = 0; i < newStartRoom.doors.Count; i++)
         {
-            GameObject newRoom = SpawnRoomWithPosition(rooms[Random.Range(0, rooms.Length)], 20 * (i + 1), 0);
-            doorsStartRoom[i].ConnectTo(newRoom.GetComponentsInChildren<Door>()[0]);
-            newRoom.name = "room " + i;
-            for (int j = 1; j < newRoom.GetComponentsInChildren<Door>().Length; j++)
-            {
-                Object.Destroy(newRoom.GetComponentsInChildren<Door>()[j].gameObject);
-            }
+            RoomComponent newRoom = SpawnRoomWithPosition(rooms[Random.Range(0, rooms.Length)], 20 * (i + 1), 0);
 
-            var room = _world.CreateEntity();
-            var roomParameters = _world.AddComponent<RoomComponent>(room);
-            roomParameters.size = newRoom.GetComponent<Collider2D>().bounds.size.x;
-
-            registerDoors(newRoom, roomParameters);
+            newStartRoom.doors[i].ConnectTo(newRoom.doors[0]);
         }
 
         GameObject newHero = Spawn(hero);
@@ -56,22 +37,26 @@ public class SpawnSystem : IEcsInitSystem
         var dude = _world.CreateEntity();
         var human = _world.AddComponent<Human>(dude);
         human.tr = newHero.transform;
-        human.currentRoom = sroomParameters;
+        human.currentRoom = newStartRoom;
         var movable = _world.AddComponent<Movable>(dude);
         _world.AddComponent<InputControlled>(dude);
-        
+        _world.AddComponent<ObjectUser>(dude);
+
 
         GameObject.FindWithTag("MainCamera").GetComponent<CompleteCameraController>().player = newHero;
-        GameObject.FindWithTag("GameLogic").GetComponent<InputHandler>().SetControlledPerson(newHero.GetComponent<Person>());
     }
 
-    private GameObject SpawnRoomWithPosition(GameObject room, float x, float y)
+    private RoomComponent SpawnRoomWithPosition(GameObject room, float x, float y)
     {
         GameObject newRoom = Spawn(room);
         newRoom.GetComponent<Transform>().position = new Vector3(x, y, 0);
         newRoom.GetComponent<Room>().SetActive(false);
         spawnedRooms.Add(newRoom);
-        return newRoom;
+
+        var roomParameters = _world.CreateEntityWith<RoomComponent>();
+        roomParameters.size = newRoom.GetComponent<Collider2D>().bounds.size.x;
+        registerDoors(newRoom, roomParameters);
+        return roomParameters;
     }
 
     private GameObject Spawn(GameObject gameObject)
@@ -86,6 +71,7 @@ public class SpawnSystem : IEcsInitSystem
         {
             var drcomponent = _world.CreateEntityWith<DoorComponent>();
             drcomponent.tr = door.gameObject.transform;
+            drcomponent.source = roomComponent;
             drcomponent.size = 3;
             roomComponent.doors.Add(drcomponent);
         }

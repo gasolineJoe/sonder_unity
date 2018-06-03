@@ -18,7 +18,7 @@ public class MoveProcessing : IEcsRunSystem
             float position = tr.localPosition.x + movementX + human.size;
             float roomSize = human.currentRoom.size;
             if (position < roomSize && tr.localPosition.x + movementX > 0)
-            tr.position = new Vector3(tr.position.x + movementX, tr.position.y, tr.position.z);
+                tr.position = new Vector3(tr.position.x + movementX, tr.position.y, tr.position.z);
         }
     }
 }

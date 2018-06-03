@@ -1,7 +1,6 @@
 ﻿using LeopotamGroup.Ecs;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
 
 [EcsInject]
 public class SpawnSystem : IEcsInitSystem
@@ -40,6 +39,11 @@ public class SpawnSystem : IEcsInitSystem
         GameObject newHero = Spawn(hero);
         newHero.GetComponent<RoomTraveller>().TravelTo(spawnedRooms[0].GetComponent<Room>());
         newHero.transform.position = new Vector3(newHero.transform.position.x, spawnedRooms[0].GetComponentInChildren<Floor>().GetFloor(), newHero.transform.position.z);
+        var dude = _world.CreateEntity();
+        var human = _world.AddComponent<Human>(dude);
+        var movable = _world.AddComponent<Movable>(dude);
+        _world.AddComponent<InputControlled>(dude);
+        human.tr = newHero.transform;
 
         GameObject.FindWithTag("MainCamera").GetComponent<CompleteCameraController>().player = newHero;
         GameObject.FindWithTag("GameLogic").GetComponent<InputHandler>().SetControlledPerson(newHero.GetComponent<Person>());

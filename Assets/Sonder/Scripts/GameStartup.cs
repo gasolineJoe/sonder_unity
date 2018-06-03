@@ -12,8 +12,9 @@ public class GameStartup : MonoBehaviour
         LeopotamGroup.Ecs.UnityIntegration.EcsWorldObserver.Create(_world);
 #endif
         _systems = new EcsSystems(_world)
-        .Add(new MoveProcessing())
-        .Add(new SpawnSystem());
+            .Add(new UserInputProcessing())
+            .Add(new MoveProcessing())
+            .Add(new SpawnSystem());
         _systems.Initialize();
 #if UNITY_EDITOR
         LeopotamGroup.Ecs.UnityIntegration.EcsSystemsObserver.Create(_systems);

@@ -9,7 +9,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 231f2120e97673d43b52163355581d8d, type: 3}
-  m_Name: RoomScriptable
+  m_Name: TestRoomSet
   m_EditorClassIdentifier: 
   Hero: {fileID: 1255930961900636, guid: 9535b7a6974b8914ab10007793da4f29, type: 2}
   startRoom: {fileID: 1628799104414752, guid: e1b55bf22a17b7d4988d74e6b4b5d021, type: 2}

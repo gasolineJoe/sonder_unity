@@ -3,16 +3,17 @@ using UnityEngine;
 
 public class GameStartup : MonoBehaviour
 {
-    public RoomsScriptable assets;
+    public SonderStartupData assets;
 
-    EcsWorld _world; EcsSystems _systems; void OnEnable()
+    EcsSonderGameWorld _world; EcsSystems _systems; void OnEnable()
     {
-        _world = new EcsWorld();
+        _world = new EcsSonderGameWorld(assets);
 #if UNITY_EDITOR
         LeopotamGroup.Ecs.UnityIntegration.EcsWorldObserver.Create(_world);
 #endif
         _systems = new EcsSystems(_world)
-        .Add(new MoveProcessing());
+        .Add(new MoveProcessing())
+        .Add(new SpawnSystem());
         _systems.Initialize();
 #if UNITY_EDITOR
         LeopotamGroup.Ecs.UnityIntegration.EcsSystemsObserver.Create(_systems);

@@ -236,7 +236,6 @@ GameObject:
   m_Component:
   - component: {fileID: 1046596434}
   - component: {fileID: 1046596436}
-  - component: {fileID: 1046596435}
   - component: {fileID: 1046596437}
   - component: {fileID: 1046596439}
   - component: {fileID: 1046596438}
@@ -260,24 +259,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1046596435
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1046596433}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d220cd677b6d0c74582c24d983cd0eb2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hero: {fileID: 1255930961900636, guid: 9535b7a6974b8914ab10007793da4f29, type: 2}
-  startRoom: {fileID: 1628799104414752, guid: e1b55bf22a17b7d4988d74e6b4b5d021, type: 2}
-  rooms:
-  - {fileID: 1370425451123778, guid: d9642463c349767419ee7ba6f65a47f0, type: 2}
-  - {fileID: 1044183128127214, guid: 29240ff712e2d324593f071c10daf1b8, type: 2}
-  - {fileID: 1628799104414752, guid: e1b55bf22a17b7d4988d74e6b4b5d021, type: 2}
-  spawnedRooms: []
 --- !u!114 &1046596436
 MonoBehaviour:
   m_ObjectHideFlags: 0

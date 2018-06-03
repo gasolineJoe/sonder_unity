@@ -3,12 +3,12 @@ using System.Collections;
 
 public class CompleteCameraController : MonoBehaviour
 {
-    public GameObject player;       //Public variable to store a reference to the player game object
-    
+    public GameObject player;
+
     void LateUpdate()
     {
         if (player != null)
             transform.position = player.transform.position;
-        transform.position = new Vector3(transform.position.x+1, transform.position.y+4, -10);
+        transform.position = new Vector3(transform.position.x + 1, transform.position.y + 4, -10);
     }
 }

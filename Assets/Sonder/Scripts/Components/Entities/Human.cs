@@ -6,7 +6,7 @@ public class Human
     public Transform tr;
     public float size = 2;
     public RoomComponent currentRoom;
-    
+
     public void travelTo(RoomComponent newRoom)
     {
         currentRoom.disabable.SetActive(false);

@@ -4,7 +4,6 @@ using UnityEngine;
 [EcsInject]
 public class MoveProcessing : IEcsRunSystem
 {
-    EcsWorld _world = null;
     EcsFilter<Human, Movable> movableHumans = null;
 
     public void Run()

@@ -35,7 +35,7 @@ public class SpawnSystem : IEcsInitSystem
         var human = _world.AddComponent<Human>(dude);
         human.tr = newHero.transform;
         human.currentRoom = newStartRoom;
-        var movable = _world.AddComponent<Movable>(dude);
+        _world.AddComponent<Movable>(dude);
         _world.AddComponent<InputControlled>(dude);
         _world.AddComponent<ObjectUser>(dude);
 

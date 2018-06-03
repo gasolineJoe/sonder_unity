@@ -4,7 +4,6 @@ using UnityEngine;
 [EcsInject]
 public class ObjectUseSystem : IEcsRunSystem
 {
-    EcsWorld _world = null;
     EcsFilter<Human, ObjectUser> humanUsers = null;
 
     public void Run()

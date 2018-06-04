@@ -1,5 +1,5 @@
 ﻿public class ObjectUser
 {
-    public DoorComponent doorToUse;
+    public Door doorToUse;
     public bool usePressed = false;
 }

@@ -13,7 +13,7 @@ public class ObjectUseSystem : IEcsRunSystem
             var user = humanUsers.Components2[i];
             var human = humanUsers.Components1[i];
             user.doorToUse = null;
-            foreach (DoorComponent door in human.currentRoom.doors)
+            foreach (Door door in human.currentRoom.doors)
             {
                 if (human.tr.position.x + human.size > door.tr.position.x && human.tr.position.x < door.tr.position.x + door.size)
                 {
@@ -23,16 +23,16 @@ public class ObjectUseSystem : IEcsRunSystem
 
             if (user.usePressed)
             {
-                DoorComponent door = user.doorToUse;
+                Door door = user.doorToUse;
                 if (door != null)
                 {
                     Vector3 newPos = door.destination.tr.position;
-                    RoomComponent newRoom = door.destination.source;
+                    Room newRoom = door.destination.source;
 
                     newPos = new Vector3(newPos.x, newRoom.floor, newPos.z);
                     human.tr.position = newPos;
 
-                    human.travelTo(newRoom);
+                    human.TravelTo(newRoom);
                 }
             }
             user.usePressed = false;

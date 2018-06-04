@@ -18,9 +18,11 @@ public class UserInputProcessing : IEcsRunSystem
         }
 
         if (Input.GetKeyDown(KeyCode.F))
+        {
             for (int i = 0; i < controlledUsers.EntitiesCount; i++)
             {
                 controlledUsers.Components1[i].usePressed = true;
             }
+        }
     }
 }

@@ -1,5 +1,4 @@
 ﻿using LeopotamGroup.Ecs;
-using System.Collections.Generic;
 using UnityEngine;
 
 [EcsInject]
@@ -26,12 +25,15 @@ public class SpawnSystem : IEcsInitSystem
             newStartRoom.doors[i].ConnectTo(newRoom.doors[0]);
         }
 
-        GameObject newHero = Spawn(hero);
-        var human = Human.New(_world, newStartRoom, newHero);
-        human.TravelTo(newStartRoom);
-        human.tr.position = new Vector3(newHero.transform.position.x, newStartRoom.floor, newHero.transform.position.z);
+        for (int i = 0; i < 200; i++)
+        {
+            GameObject newHero = Spawn(hero);
+            var human = Human.New(_world, newStartRoom, newHero);
+            human.TravelTo(newStartRoom);
+            human.tr.position = new Vector3(newHero.transform.position.x, newStartRoom.floor, newHero.transform.position.z);
 
-        GameObject.FindWithTag("MainCamera").GetComponent<CompleteCameraController>().player = newHero;
+            GameObject.FindWithTag("MainCamera").GetComponent<CompleteCameraController>().player = newHero;
+        }
     }
 
     private Room SpawnRoomWithPosition(GameObject room, float x, float y)

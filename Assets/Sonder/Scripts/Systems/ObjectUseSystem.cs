@@ -2,12 +2,14 @@
 using UnityEngine;
 
 [EcsInject]
-public class ObjectUseSystem : IEcsRunSystem
+public class ObjectUseSystem : Delayed, IEcsRunSystem
 {
     EcsFilter<Human, ObjectUser> humanUsers = null;
 
     public void Run()
     {
+        if (CantUpdate()) return;
+
         for (int i = 0; i < humanUsers.EntitiesCount; i++)
         {
             var user = humanUsers.Components2[i];

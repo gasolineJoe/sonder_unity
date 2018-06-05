@@ -1,4 +1,5 @@
 ﻿using LeopotamGroup.Ecs;
+using System.Collections.Generic;
 using UnityEngine;
 
 [EcsInject]
@@ -19,10 +20,18 @@ public class SpawnSystem : IEcsInitSystem
         this.roomsObjects = _world.startupData.rooms;
 
         Room newStartRoom = SpawnRoomWithPosition(startRoomObject, 0, 0);
-        for (int i = 0; i < newStartRoom.doors.Count; i++)
+        int c = 0;
+        List<Door> doors = new List<Door>();
+        doors.AddRange(newStartRoom.doors);
+        while (c < doors.Count)
         {
-            Room newRoom = SpawnRoomWithPosition(roomsObjects[Random.Range(0, roomsObjects.Length)], 20 * (i + 1), 0);
-            newStartRoom.doors[i].ConnectTo(newRoom.doors[0]);
+            Room newRoom = SpawnRoomWithPosition(roomsObjects[Random.Range(0, roomsObjects.Length)], 20 * (c + 1), 0);
+            if (newRoom.doors.Count > 1)
+            {
+                doors.AddRange(newRoom.doors.GetRange(1, newRoom.doors.Count - 1));
+            }
+            doors[c].ConnectTo(newRoom.doors[0]);
+            c++;
         }
 
         for (int i = 0; i < 20; i++)

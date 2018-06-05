@@ -8,6 +8,7 @@ public class Room
     public float floor = 1;
     public Disabable disabable;
     public Transform tr;
+    public List<Human> localHumans = new List<Human>();
 
     public static Room New(EcsSonderGameWorld _world, GameObject roomObject)
     {

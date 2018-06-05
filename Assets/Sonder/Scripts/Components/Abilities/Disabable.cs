@@ -3,7 +3,7 @@ using UnityEditor;
 
 public class Disabable
 {
-    public bool active;
+    public bool active = true;
     public SpriteRenderer[] sprites;
 
     void SetSubRenderersEnabled(bool isEnabled)

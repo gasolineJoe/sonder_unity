@@ -1,4 +1,5 @@
 ﻿using LeopotamGroup.Ecs;
+using System.Collections.Generic;
 using UnityEngine;
 
 [EcsInject]
@@ -6,33 +7,45 @@ public class SpawnSystem : IEcsInitSystem
 {
     EcsSonderGameWorld _world = null;
 
-    private GameObject hero;
-    private GameObject startRoom;
+    private GameObject humanObject;
+    private GameObject startRoomObject;
 
     [Space]
-    private GameObject[] rooms;
+    private GameObject[] roomsObjects;
 
     public void Initialize()
     {
-        this.hero = _world.startupData.Hero;
-        this.startRoom = _world.startupData.startRoom;
-        this.rooms = _world.startupData.rooms;
+        this.humanObject = _world.startupData.Hero;
+        this.startRoomObject = _world.startupData.startRoom;
+        this.roomsObjects = _world.startupData.rooms;
 
-        Room newStartRoom = SpawnRoomWithPosition(startRoom, 0, 0);
-        for (int i = 0; i < newStartRoom.doors.Count; i++)
+        Room newStartRoom = SpawnRoomWithPosition(startRoomObject, 0, 0);
+        int c = 0;
+        List<Door> doors = new List<Door>();
+        doors.AddRange(newStartRoom.doors);
+        while (c < doors.Count)
         {
-            Room newRoom = SpawnRoomWithPosition(rooms[Random.Range(0, rooms.Length)], 20 * (i + 1), 0);
-            newStartRoom.doors[i].ConnectTo(newRoom.doors[0]);
+            Room newRoom = SpawnRoomWithPosition(roomsObjects[Random.Range(0, roomsObjects.Length)], 20 * (c + 1), 0);
+            if (newRoom.doors.Count > 1)
+            {
+                doors.AddRange(newRoom.doors.GetRange(1, newRoom.doors.Count - 1));
+            }
+            doors[c].ConnectTo(newRoom.doors[0]);
+            c++;
         }
 
-        for (int i = 0; i < 200; i++)
+        for (int i = 0; i < 20; i++)
         {
-            GameObject newHero = Spawn(hero);
-            var human = Human.New(_world, newStartRoom, newHero);
+            GameObject newHumanObject = Spawn(humanObject);
+            var human = Human.New(_world, newStartRoom, newHumanObject);
             human.TravelTo(newStartRoom);
-            human.tr.position = new Vector3(newHero.transform.position.x, newStartRoom.floor, newHero.transform.position.z);
+            human.tr.position = new Vector3(newHumanObject.transform.position.x, newStartRoom.floor, newHumanObject.transform.position.z);
 
-            GameObject.FindWithTag("MainCamera").GetComponent<CompleteCameraController>().player = newHero;
+            if (i == 0)
+            {
+                GameObject.FindWithTag("MainCamera").GetComponent<CompleteCameraController>().playerTransform = human.tr;
+                human.MakePlayer(_world);
+            }
         }
     }
 

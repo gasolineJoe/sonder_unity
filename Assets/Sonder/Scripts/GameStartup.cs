@@ -15,7 +15,9 @@ public class GameStartup : MonoBehaviour
            .Add(new SpawnSystem())
            .Add(new UserInputProcessing())
            .Add(new MoveProcessing())
-           .Add(new ObjectUseSystem());
+           .Add(new ObjectUseSystem())
+           .Add(new DumbAiSystem())
+           ;
         _systems.Initialize();
 #if UNITY_EDITOR
         LeopotamGroup.Ecs.UnityIntegration.EcsSystemsObserver.Create(_systems);

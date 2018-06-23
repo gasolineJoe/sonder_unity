@@ -14,7 +14,7 @@ public class MoveProcessing : Delayed, IEcsRunSystem, IEcsInitSystem
     public void Run()
     {
         if (CantUpdate()) return;
-        
+
         for (int i = 0; i < movableHumans.EntitiesCount; i++)
         {
             var movable = movableHumans.Components2[i];
@@ -25,6 +25,18 @@ public class MoveProcessing : Delayed, IEcsRunSystem, IEcsInitSystem
             float roomSize = human.currentRoom.size;
             if (rightEdge < roomSize && tr.localPosition.x + movementX > 0)
                 tr.Translate(movementX, 0, 0);
+            else
+            {
+                if (rightEdge < roomSize)
+                {
+                    tr.Translate(-tr.localPosition.x, 0, 0);
+                }
+                else
+                {
+                    tr.Translate(roomSize- tr.localPosition.x - human.size, 0, 0);
+                }
+            }
+
         }
     }
 

@@ -19,8 +19,17 @@ public class ObjectUseSystem : Delayed, IEcsRunSystem {
                 }
             }
 
+            user.BoxToUse = null;
+            foreach (var box in human.CurrentRoom.Boxes) {
+                if (human.Tr.position.x + human.Size > box.Tr.position.x &&
+                    human.Tr.position.x < box.Tr.position.x + box.Size) {
+                    user.BoxToUse = box;
+                }
+            }
+
             if (user.UsePressed) {
                 var door = user.DoorToUse;
+                var box = user.BoxToUse;
                 if (door != null) {
                     var newPos = door.Destination.Tr.position;
                     var newRoom = door.Destination.Source;
@@ -29,6 +38,10 @@ public class ObjectUseSystem : Delayed, IEcsRunSystem {
                     human.Tr.position = newPos;
 
                     human.TravelTo(newRoom);
+                }
+
+                if (box != null) {
+                    Debug.Log("human " + human.Entity + " is using boxe");
                 }
             }
 

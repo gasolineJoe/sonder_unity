@@ -23,8 +23,8 @@ public class Room {
     }
 
     private static void RegisterDoors(EcsSonderGameWorld world, GameObject room, Room roomComponent) {
-        DoorTag[] doorsStartRoom = room.GetComponentsInChildren<DoorTag>();
-        foreach (DoorTag door in doorsStartRoom) {
+        var doorsStartRoom = room.GetComponentsInChildren<DoorTag>();
+        foreach (var door in doorsStartRoom) {
             roomComponent.Doors.Add(Door.New(world, door.gameObject, roomComponent));
         }
     }

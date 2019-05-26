@@ -5,8 +5,8 @@ public class Disabable {
     public SpriteRenderer[] Sprites;
 
     void SetSubRenderersEnabled(bool isEnabled) {
-        for (int i = 0; i < Sprites.Length; i++) {
-            Sprites[i].enabled = isEnabled;
+        foreach (var sprite in Sprites) {
+            sprite.enabled = isEnabled;
         }
     }
 

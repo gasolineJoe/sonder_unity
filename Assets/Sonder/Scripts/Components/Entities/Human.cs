@@ -18,7 +18,7 @@ public class Human {
         world.AddComponent<ObjectUser>(entity);
         human.Disabable = world.AddComponent<Disabable>(entity);
         human.Disabable.Sprites = humanObject.GetComponentsInChildren<SpriteRenderer>();
-        DrawableSprite renderer = world.AddComponent<DrawableSprite>(entity);
+        var renderer = world.AddComponent<DrawableSprite>(entity);
         renderer.SpriteRenderer = humanObject.GetComponent<SpriteRenderer>();
         renderer.SetRandomColor();
         return human;
@@ -41,11 +41,11 @@ public class Human {
         if (InputControlled) {
             newRoom.Disabable.SetActive(true);
             oldRoom.Disabable.SetActive(false);
-            foreach (Human h in oldRoom.LocalHumans) {
+            foreach (var h in oldRoom.LocalHumans) {
                 h.Disabable.SetActive(false);
             }
 
-            foreach (Human h in newRoom.LocalHumans) {
+            foreach (var h in newRoom.LocalHumans) {
                 h.Disabable.SetActive(true);
             }
         }

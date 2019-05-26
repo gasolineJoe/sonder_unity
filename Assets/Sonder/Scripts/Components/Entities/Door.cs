@@ -18,8 +18,8 @@ public class Door {
         }
     }
 
-    public static Door New(EcsSonderGameWorld _world, GameObject doorObject, Room sourceRoom) {
-        var newDoor = _world.CreateEntityWith<Door>();
+    public static Door New(EcsSonderGameWorld world, GameObject doorObject, Room sourceRoom) {
+        var newDoor = world.CreateEntityWith<Door>();
         newDoor.Tr = doorObject.transform;
         newDoor.Source = sourceRoom;
         newDoor.Size = 3;

@@ -1,5 +1,4 @@
 ﻿public class ObjectUser {
-    public Door DoorToUse;
-    public Box BoxToUse;
+    public Usable ObjectToUse;
     public bool UsePressed = false;
 }

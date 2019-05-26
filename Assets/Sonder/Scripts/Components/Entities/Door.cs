@@ -1,9 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-public class Door {
-    public Transform Tr;
-    public int Size;
+public class Door : UsableObject {
     public Door Destination;
     public Room Source;
 
@@ -19,10 +17,10 @@ public class Door {
     }
 
     public static Door New(EcsSonderGameWorld world, GameObject doorObject, Room sourceRoom) {
-        var newDoor = world.CreateEntityWith<Door>();
-        newDoor.Tr = doorObject.transform;
+        var entity = world.CreateEntity();
+        var newDoor = world.AddComponent<Door>(entity);
+        world.AddComponent<Usable>(entity).Set(newDoor, Usable.Type.Door, doorObject.transform, 3);
         newDoor.Source = sourceRoom;
-        newDoor.Size = 3;
         return newDoor;
     }
 }

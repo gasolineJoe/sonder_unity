@@ -5,6 +5,7 @@ public class Room {
     public float Size;
     public readonly List<Door> Doors = new List<Door>();
     public readonly List<Box> Boxes = new List<Box>();
+    public readonly List<Usable> Usables = new List<Usable>();
     public readonly float Floor = 1;
     public Disabable Disabable;
     public Transform Tr;
@@ -27,15 +28,18 @@ public class Room {
     private void RegisterDoors(EcsSonderGameWorld world, GameObject room) {
         var doorsInRoom = room.GetComponentsInChildren<DoorTag>();
         foreach (var door in doorsInRoom) {
-            Doors.Add(Door.New(world, door.gameObject, this));
+            var d = Door.New(world, door.gameObject, this);
+            Doors.Add(d);
+            Usables.Add(d.Usable);
         }
     }
 
     private void RegisterBoxes(EcsSonderGameWorld world, GameObject room) {
         var boxesInRoom = room.GetComponentsInChildren<BoxTag>();
         foreach (var box in boxesInRoom) {
-            Boxes.Add(Box.New(world, box.gameObject));
-            Debug.Log("found box");
+            var b = Box.New(world, box.gameObject);
+            Boxes.Add(b);
+            Usables.Add(b.Usable);
         }
     }
 }

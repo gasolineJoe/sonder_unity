@@ -1,13 +1,10 @@
 using UnityEngine;
 
-public class Box {
-    public Transform Tr;
-    public int Size;
-    
+public class Box : UsableObject {
     public static Box New(EcsSonderGameWorld world, GameObject boxObject) {
-        var newBox = world.CreateEntityWith<Box>();
-        newBox.Tr = boxObject.transform;
-        newBox.Size = 3;
+        var entity = world.CreateEntity();
+        var newBox = world.AddComponent<Box>(entity);
+        world.AddComponent<Usable>(entity).Set(newBox, Usable.Type.Box, boxObject.transform, 3);
         return newBox;
     }
 }

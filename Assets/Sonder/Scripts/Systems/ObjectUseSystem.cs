@@ -2,42 +2,37 @@
 using UnityEngine;
 
 [EcsInject]
-public class ObjectUseSystem : Delayed, IEcsRunSystem
-{
-    EcsFilter<Human, ObjectUser> humanUsers = null;
+public class ObjectUseSystem : Delayed, IEcsRunSystem {
+    EcsFilter<Human, ObjectUser> _humanUsers = null;
 
-    public void Run()
-    {
+    public void Run() {
         if (CantUpdate()) return;
 
-        for (int i = 0; i < humanUsers.EntitiesCount; i++)
-        {
-            var user = humanUsers.Components2[i];
-            var human = humanUsers.Components1[i];
-            user.doorToUse = null;
-            foreach (Door door in human.currentRoom.doors)
-            {
-                if (human.tr.position.x + human.size > door.tr.position.x && human.tr.position.x < door.tr.position.x + door.size)
-                {
-                    user.doorToUse = door;
+        for (int i = 0; i < _humanUsers.EntitiesCount; i++) {
+            var user = _humanUsers.Components2[i];
+            var human = _humanUsers.Components1[i];
+            user.DoorToUse = null;
+            foreach (Door door in human.CurrentRoom.Doors) {
+                if (human.Tr.position.x + human.Size > door.Tr.position.x &&
+                    human.Tr.position.x < door.Tr.position.x + door.Size) {
+                    user.DoorToUse = door;
                 }
             }
 
-            if (user.usePressed)
-            {
-                Door door = user.doorToUse;
-                if (door != null)
-                {
-                    Vector3 newPos = door.destination.tr.position;
-                    Room newRoom = door.destination.source;
+            if (user.UsePressed) {
+                Door door = user.DoorToUse;
+                if (door != null) {
+                    Vector3 newPos = door.Destination.Tr.position;
+                    Room newRoom = door.Destination.Source;
 
-                    newPos = new Vector3(newPos.x, newRoom.floor, newPos.z);
-                    human.tr.position = newPos;
+                    newPos = new Vector3(newPos.x, newRoom.Floor, newPos.z);
+                    human.Tr.position = newPos;
 
                     human.TravelTo(newRoom);
                 }
             }
-            user.usePressed = false;
+
+            user.UsePressed = false;
         }
     }
 }

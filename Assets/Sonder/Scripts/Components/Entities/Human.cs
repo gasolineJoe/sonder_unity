@@ -1,64 +1,57 @@
 ﻿using UnityEngine;
-using UnityEditor;
 
-public class Human
-{
-    public int entity;
-    public Transform tr;
-    public float size = 2;
-    public Room currentRoom;
-    public bool inputControlled = false;
-    public Disabable disabable;
+public class Human {
+    public int Entity;
+    public Transform Tr;
+    public readonly float Size = 2;
+    public Room CurrentRoom;
+    public bool InputControlled;
+    public Disabable Disabable;
 
-    public static Human New(EcsSonderGameWorld _world, Room startRoom, GameObject humanObject)
-    {
-        var _entity = _world.CreateEntity();
-        var human = _world.AddComponent<Human>(_entity);
-        human.entity = _entity;
-        human.tr = humanObject.transform;
-        human.currentRoom = startRoom;
-        _world.AddComponent<Movable>(_entity);
-        _world.AddComponent<ObjectUser>(_entity);
-        human.disabable = _world.AddComponent<Disabable>(_entity);
-        human.disabable.sprites = humanObject.GetComponentsInChildren<SpriteRenderer>();
-        DrawableSprite renderer = _world.AddComponent<DrawableSprite>(_entity);
-        renderer.spriteRenderer = humanObject.GetComponent<SpriteRenderer>();
-        renderer.setRandomColor();
+    public static Human New(EcsSonderGameWorld world, Room startRoom, GameObject humanObject) {
+        var entity = world.CreateEntity();
+        var human = world.AddComponent<Human>(entity);
+        human.Entity = entity;
+        human.Tr = humanObject.transform;
+        human.CurrentRoom = startRoom;
+        world.AddComponent<Movable>(entity);
+        world.AddComponent<ObjectUser>(entity);
+        human.Disabable = world.AddComponent<Disabable>(entity);
+        human.Disabable.Sprites = humanObject.GetComponentsInChildren<SpriteRenderer>();
+        DrawableSprite renderer = world.AddComponent<DrawableSprite>(entity);
+        renderer.SpriteRenderer = humanObject.GetComponent<SpriteRenderer>();
+        renderer.SetRandomColor();
         return human;
     }
 
-    public Human MakePlayer(EcsSonderGameWorld _world)
-    {
-        _world.AddComponent<InputControlled>(entity);
-        inputControlled = true;
-        currentRoom.disabable.SetActive(true);
-        disabable.SetActive(true);
+    public Human MakePlayer(EcsSonderGameWorld world) {
+        world.AddComponent<InputControlled>(Entity);
+        InputControlled = true;
+        CurrentRoom.Disabable.SetActive(true);
+        Disabable.SetActive(true);
         return this;
     }
 
-    public void TravelTo(Room newRoom)
-    {        
-        tr.SetParent(newRoom.tr);
-        var oldRoom = currentRoom;
-        currentRoom = null;
-        oldRoom.localHumans.Remove(this);
+    public void TravelTo(Room newRoom) {
+        Tr.SetParent(newRoom.Tr);
+        var oldRoom = CurrentRoom;
+        CurrentRoom = null;
+        oldRoom.LocalHumans.Remove(this);
 
-        if (inputControlled)
-        {
-            newRoom.disabable.SetActive(true);
-            oldRoom.disabable.SetActive(false);
-            foreach (Human h in oldRoom.localHumans)
-            {
-                h.disabable.SetActive(false);
+        if (InputControlled) {
+            newRoom.Disabable.SetActive(true);
+            oldRoom.Disabable.SetActive(false);
+            foreach (Human h in oldRoom.LocalHumans) {
+                h.Disabable.SetActive(false);
             }
-            foreach (Human h in newRoom.localHumans)
-            {
-                h.disabable.SetActive(true);
+
+            foreach (Human h in newRoom.LocalHumans) {
+                h.Disabable.SetActive(true);
             }
         }
 
-        newRoom.localHumans.Add(this);
-        if (!inputControlled) disabable.SetActive(newRoom.disabable.active);
-        currentRoom = newRoom;
+        newRoom.LocalHumans.Add(this);
+        if (!InputControlled) Disabable.SetActive(newRoom.Disabable.Active);
+        CurrentRoom = newRoom;
     }
 }

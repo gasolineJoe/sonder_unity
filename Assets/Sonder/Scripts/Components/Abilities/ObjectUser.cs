@@ -1,5 +1,4 @@
-﻿public class ObjectUser
-{
-    public Door doorToUse;
-    public bool usePressed = false;
+﻿public class ObjectUser {
+    public Door DoorToUse;
+    public bool UsePressed = false;
 }

@@ -1,35 +1,31 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
-public class Room
-{
-    public float size;
-    public List<Door> doors = new List<Door>();
-    public float floor = 1;
-    public Disabable disabable;
-    public Transform tr;
-    public List<Human> localHumans = new List<Human>();
+public class Room {
+    public float Size;
+    public readonly List<Door> Doors = new List<Door>();
+    public readonly float Floor = 1;
+    public Disabable Disabable;
+    public Transform Tr;
+    public readonly List<Human> LocalHumans = new List<Human>();
 
-    public static Room New(EcsSonderGameWorld _world, GameObject roomObject)
-    {
-        var roomEntity = _world.CreateEntity();
-        var newRoom = _world.AddComponent<Room>(roomEntity);
-        var disabable = _world.AddComponent<Disabable>(roomEntity);
-        newRoom.size = roomObject.GetComponent<Collider2D>().bounds.size.x;
-        newRoom.disabable = disabable;
-        newRoom.disabable.sprites = roomObject.GetComponentsInChildren<SpriteRenderer>();
-        newRoom.disabable.SetActive(false);
-        newRoom.tr = roomObject.GetComponent<Transform>();
-        registerDoors(_world, roomObject, newRoom);
+    public static Room New(EcsSonderGameWorld world, GameObject roomObject) {
+        var roomEntity = world.CreateEntity();
+        var newRoom = world.AddComponent<Room>(roomEntity);
+        var disabable = world.AddComponent<Disabable>(roomEntity);
+        newRoom.Size = roomObject.GetComponent<Collider2D>().bounds.size.x;
+        newRoom.Disabable = disabable;
+        newRoom.Disabable.Sprites = roomObject.GetComponentsInChildren<SpriteRenderer>();
+        newRoom.Disabable.SetActive(false);
+        newRoom.Tr = roomObject.GetComponent<Transform>();
+        RegisterDoors(world, roomObject, newRoom);
         return newRoom;
     }
 
-    private static void registerDoors(EcsSonderGameWorld _world, GameObject room, Room roomComponent)
-    {
+    private static void RegisterDoors(EcsSonderGameWorld world, GameObject room, Room roomComponent) {
         DoorTag[] doorsStartRoom = room.GetComponentsInChildren<DoorTag>();
-        foreach (DoorTag door in doorsStartRoom)
-        {
-            roomComponent.doors.Add(Door.New(_world, door.gameObject, roomComponent));
+        foreach (DoorTag door in doorsStartRoom) {
+            roomComponent.Doors.Add(Door.New(world, door.gameObject, roomComponent));
         }
     }
 }

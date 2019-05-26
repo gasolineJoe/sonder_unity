@@ -1,32 +1,28 @@
-﻿using UnityEngine;
-using UnityEditor;
+﻿using System;
+using UnityEngine;
 
-public class Door
-{
-    public Transform tr;
-    public int size;
-    public Door destination;
-    public Room source;
+public class Door {
+    public Transform Tr;
+    public int Size;
+    public Door Destination;
+    public Room Source;
 
-    public void ConnectTo(Door door)
-    {
-        if (destination == null && door.destination == null)
-        {
-            destination = door;
-            door.destination = this;
+    public void ConnectTo(Door door) {
+        if (Destination == null && door.Destination == null) {
+            Destination = door;
+            door.Destination = this;
         }
-        else
-        {
-            throw (new System.Exception("This door is already connected to " + destination + "! Use DropConnection if you know what you are doing, smartass"));
+        else {
+            throw new Exception("This door is already connected to " + Destination +
+                                "! Use DropConnection if you know what you are doing, smartass");
         }
     }
 
-    public static Door New(EcsSonderGameWorld _world, GameObject doorObject, Room sourceRoom)
-    {
+    public static Door New(EcsSonderGameWorld _world, GameObject doorObject, Room sourceRoom) {
         var newDoor = _world.CreateEntityWith<Door>();
-        newDoor.tr = doorObject.transform;
-        newDoor.source = sourceRoom;
-        newDoor.size = 3;
+        newDoor.Tr = doorObject.transform;
+        newDoor.Source = sourceRoom;
+        newDoor.Size = 3;
         return newDoor;
     }
 }

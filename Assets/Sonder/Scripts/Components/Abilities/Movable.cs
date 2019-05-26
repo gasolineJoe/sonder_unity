@@ -1,8 +1,4 @@
-﻿using UnityEngine;
-using UnityEditor;
-
-public class Movable
-{
-    public float speed = 10f;
-    public float acceleration = 0;
+﻿public class Movable {
+    public float Speed = 10f;
+    public float Acceleration = 0;
 }

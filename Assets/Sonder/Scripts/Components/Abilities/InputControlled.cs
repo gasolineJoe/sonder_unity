@@ -1,6 +1,2 @@
-﻿using UnityEngine;
-using UnityEditor;
-
-public class InputControlled
-{
+﻿public class InputControlled {
 }

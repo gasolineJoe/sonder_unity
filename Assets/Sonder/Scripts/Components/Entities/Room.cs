@@ -4,6 +4,7 @@ using UnityEngine;
 public class Room {
     public float Size;
     public readonly List<Door> Doors = new List<Door>();
+    public readonly List<Box> Boxes = new List<Box>();
     public readonly float Floor = 1;
     public Disabable Disabable;
     public Transform Tr;
@@ -18,14 +19,23 @@ public class Room {
         newRoom.Disabable.Sprites = roomObject.GetComponentsInChildren<SpriteRenderer>();
         newRoom.Disabable.SetActive(false);
         newRoom.Tr = roomObject.GetComponent<Transform>();
-        RegisterDoors(world, roomObject, newRoom);
+        newRoom.RegisterDoors(world, roomObject);
+        newRoom.RegisterBoxes(world, roomObject);
         return newRoom;
     }
 
-    private static void RegisterDoors(EcsSonderGameWorld world, GameObject room, Room roomComponent) {
-        var doorsStartRoom = room.GetComponentsInChildren<DoorTag>();
-        foreach (var door in doorsStartRoom) {
-            roomComponent.Doors.Add(Door.New(world, door.gameObject, roomComponent));
+    private void RegisterDoors(EcsSonderGameWorld world, GameObject room) {
+        var doorsInRoom = room.GetComponentsInChildren<DoorTag>();
+        foreach (var door in doorsInRoom) {
+            Doors.Add(Door.New(world, door.gameObject, this));
+        }
+    }
+
+    private void RegisterBoxes(EcsSonderGameWorld world, GameObject room) {
+        var boxesInRoom = room.GetComponentsInChildren<BoxTag>();
+        foreach (var box in boxesInRoom) {
+            Boxes.Add(Box.New(world, box.gameObject));
+            Debug.Log("found box");
         }
     }
 }

@@ -17,6 +17,7 @@ public class ObjectUseSystem : Delayed, IEcsRunSystem {
                 if (human.Tr.position.x + human.Size > usable.Tr.position.x &&
                     human.Tr.position.x < usable.Tr.position.x + usable.Size) {
                     user.ObjectToUse = usable;
+                    break;
                 }
             }
 
@@ -35,8 +36,18 @@ public class ObjectUseSystem : Delayed, IEcsRunSystem {
                             human.TravelTo(newRoom);
                             break;
                         case Usable.Type.Box:
-                            Debug.Log("human " + human.Entity + " is using boxe");
-                            break;
+                            if (!(usable.UsableObject is Box box)) return;
+                            if (box.Items.Count > 0) {
+                                var item = box.Items[0];
+                                box.Items.RemoveAt(0);
+                                human.Storage.Add(item);
+                                Debug.Log("Human got " + item + " from boxe. He now has " + human.Storage + " items");
+                            }
+                            else {
+                                Debug.Log("Human opened boxe but it's empty!");
+                            }
+
+                    break;
                         default:
                             throw new ArgumentOutOfRangeException();
                     }

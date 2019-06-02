@@ -1,23 +1,25 @@
 ﻿using UnityEngine;
 
 public class Human {
-    public int Entity;
+    private int _entity;
     public Transform Tr;
     public readonly float Size = 2;
     public Room CurrentRoom;
-    public bool InputControlled;
-    public Disabable Disabable;
+    private bool _inputControlled;
+    private Disabable _disabable;
+    public Storage Storage;
 
     public static Human New(EcsSonderGameWorld world, Room startRoom, GameObject humanObject) {
         var entity = world.CreateEntity();
         var human = world.AddComponent<Human>(entity);
-        human.Entity = entity;
+        human._entity = entity;
         human.Tr = humanObject.transform;
         human.CurrentRoom = startRoom;
         world.AddComponent<Movable>(entity);
         world.AddComponent<ObjectUser>(entity);
-        human.Disabable = world.AddComponent<Disabable>(entity);
-        human.Disabable.Sprites = humanObject.GetComponentsInChildren<SpriteRenderer>();
+        human._disabable = world.AddComponent<Disabable>(entity);
+        human.Storage = world.AddComponent<Storage>(entity);
+        human._disabable.Sprites = humanObject.GetComponentsInChildren<SpriteRenderer>();
         var renderer = world.AddComponent<DrawableSprite>(entity);
         renderer.SpriteRenderer = humanObject.GetComponent<SpriteRenderer>();
         renderer.SetRandomColor();
@@ -25,10 +27,10 @@ public class Human {
     }
 
     public Human MakePlayer(EcsSonderGameWorld world) {
-        world.AddComponent<InputControlled>(Entity);
-        InputControlled = true;
+        world.AddComponent<InputControlled>(_entity);
+        _inputControlled = true;
         CurrentRoom.Disabable.SetActive(true);
-        Disabable.SetActive(true);
+        _disabable.SetActive(true);
         return this;
     }
 
@@ -38,20 +40,20 @@ public class Human {
         CurrentRoom = null;
         oldRoom.LocalHumans.Remove(this);
 
-        if (InputControlled) {
+        if (_inputControlled) {
             newRoom.Disabable.SetActive(true);
             oldRoom.Disabable.SetActive(false);
             foreach (var h in oldRoom.LocalHumans) {
-                h.Disabable.SetActive(false);
+                h._disabable.SetActive(false);
             }
 
             foreach (var h in newRoom.LocalHumans) {
-                h.Disabable.SetActive(true);
+                h._disabable.SetActive(true);
             }
         }
 
         newRoom.LocalHumans.Add(this);
-        if (!InputControlled) Disabable.SetActive(newRoom.Disabable.Active);
+        if (!_inputControlled) _disabable.SetActive(newRoom.Disabable.Active);
         CurrentRoom = newRoom;
     }
 }

@@ -12,6 +12,10 @@ namespace Sonder.Scripts.Components.Abilities.Mind {
     public class ActionQueue {
         private List<Tuple<Action, int>> _queue = new List<Tuple<Action, int>>();
 
+        public Boolean HasActions() {
+            return _queue.Count > 0;
+        }
+
         public Tuple<Action, int> GetAction() {
             if (_queue.Count > 0) {
                 return _queue.First();

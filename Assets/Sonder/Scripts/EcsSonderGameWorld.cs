@@ -1,9 +1,13 @@
-﻿using LeopotamGroup.Ecs;
+﻿using Sonder.Scripts.AssetHandlers;
 
-public class EcsSonderGameWorld : EcsWorld {
-    public readonly SonderStartupData StartupData;
+namespace Sonder.Scripts {
+    using LeopotamGroup.Ecs;
 
-    public EcsSonderGameWorld(SonderStartupData data) {
-        StartupData = data;
+    public class EcsSonderGameWorld : EcsWorld {
+        public readonly SonderStartupData StartupData;
+
+        public EcsSonderGameWorld(SonderStartupData data) {
+            StartupData = data;
+        }
     }
 }

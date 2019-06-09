@@ -1,26 +1,30 @@
-﻿using System;
-using UnityEngine;
+﻿using Sonder.Scripts.Components.Abilities;
 
-public class Door : UsableObject {
-    public Door Destination;
-    public Room Source;
+namespace Sonder.Scripts.Components.Entities {
+    using System;
+    using UnityEngine;
 
-    public void ConnectTo(Door door) {
-        if (Destination == null && door.Destination == null) {
-            Destination = door;
-            door.Destination = this;
+    public class Door : UsableObject {
+        public Door Destination;
+        public Room Source;
+
+        public void ConnectTo(Door door) {
+            if (Destination == null && door.Destination == null) {
+                Destination = door;
+                door.Destination = this;
+            }
+            else {
+                throw new Exception("This door is already connected to " + Destination +
+                                    "! Use DropConnection if you know what you are doing, smartass");
+            }
         }
-        else {
-            throw new Exception("This door is already connected to " + Destination +
-                                "! Use DropConnection if you know what you are doing, smartass");
-        }
-    }
 
-    public static Door New(EcsSonderGameWorld world, GameObject doorObject, Room sourceRoom) {
-        var entity = world.CreateEntity();
-        var newDoor = world.AddComponent<Door>(entity);
-        world.AddComponent<Usable>(entity).Set(newDoor, Usable.Type.Door, doorObject.transform, 3);
-        newDoor.Source = sourceRoom;
-        return newDoor;
+        public static Door New(EcsSonderGameWorld world, GameObject doorObject, Room sourceRoom) {
+            var entity = world.CreateEntity();
+            var newDoor = world.AddComponent<Door>(entity);
+            world.AddComponent<Usable>(entity).Set(newDoor, Usable.Type.Door, doorObject.transform, 3);
+            newDoor.Source = sourceRoom;
+            return newDoor;
+        }
     }
 }

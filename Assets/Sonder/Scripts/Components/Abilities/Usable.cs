@@ -1,22 +1,26 @@
-using UnityEngine;
+using Sonder.Scripts.Components.Entities;
 
-public class Usable {
-    public Transform Tr;
+namespace Sonder.Scripts.Components.Abilities {
+    using UnityEngine;
 
-    public enum Type {
-        Door,
-        Box
-    }
+    public class Usable {
+        public Transform Tr;
 
-    public int Size;
-    public Type UsableType;
-    public UsableObject UsableObject;
+        public enum Type {
+            Door,
+            Box
+        }
 
-    public void Set(UsableObject usableObject, Type usableType, Transform tr, int size) {
-        Tr = tr;
-        Size = size;
-        UsableType = usableType;
-        UsableObject = usableObject;
-        usableObject.Usable = this;
+        public int Size;
+        public Type UsableType;
+        public UsableObject UsableObject;
+
+        public void Set(UsableObject usableObject, Type usableType, Transform tr, int size) {
+            Tr = tr;
+            Size = size;
+            UsableType = usableType;
+            UsableObject = usableObject;
+            usableObject.Usable = this;
+        }
     }
 }

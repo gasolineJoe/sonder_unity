@@ -1,17 +1,13 @@
-using Sonder.Scripts.Components.Items;
+using System.Collections.Generic;
 
-namespace Sonder.Scripts.Components.Abilities {
-    using System.Collections.Generic;
+public class Storage {
+    public readonly List<Item> Inventory = new List<Item>();
 
-    public class Storage {
-        public readonly List<Item> Inventory = new List<Item>();
+    public void Add(Item item) {
+        Inventory.Add(item);
+    }
 
-        public void Add(Item item) {
-            Inventory.Add(item);
-        }
-
-        public override string ToString() {
-            return Inventory.Count.ToString();
-        }
+    public override string ToString() {
+        return Inventory.Count.ToString();
     }
 }

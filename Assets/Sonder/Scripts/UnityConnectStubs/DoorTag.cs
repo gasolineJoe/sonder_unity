@@ -1,7 +1,5 @@
-﻿namespace Sonder.Scripts.UnityConnectStubs {
-    using UnityEngine;
+﻿using UnityEngine;
 
-    public class DoorTag : MonoBehaviour {
-        //just to ease finding this shiet
-    }
+public class DoorTag : MonoBehaviour {
+    //just to ease finding this shiet
 }

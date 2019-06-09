@@ -1,23 +1,19 @@
-﻿using Sonder.Scripts.Components.Abilities;
-using Sonder.Scripts.Components.Entities;
+﻿using LeopotamGroup.Ecs;
+using UnityEngine;
 
-namespace Sonder.Scripts.Systems {
-    using LeopotamGroup.Ecs;
-    using UnityEngine;
+[EcsInject]
+public class DumbAiSystem : Delayed, IEcsRunSystem, IEcsInitSystem {
+    EcsFilter<Human, Movable, ObjectUser>.Exclude<InputControlled> _robots = null;
 
-    [EcsInject]
-    public class DumbAiSystem : Delayed, IEcsRunSystem, IEcsInitSystem {
-        EcsFilter<Human, Movable, ObjectUser>.Exclude<InputControlled> _robots = null;
+    public void Initialize() {
+        Delay = 1;
+    }
 
-        public void Initialize() {
-            Delay = 1;
-        }
+    public void Run() {
+        if (CantUpdate()) return;
+        
+    }
 
-        public void Run() {
-            if (CantUpdate()) return;
-        }
-
-        public void Destroy() {
-        }
+    public void Destroy() {
     }
 }

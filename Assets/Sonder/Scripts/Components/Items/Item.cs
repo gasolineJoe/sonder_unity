@@ -1,4 +1,3 @@
-namespace Sonder.Scripts.Components.Items {
-    abstract public class Item {
-    }
+abstract public class Item {
+    
 }

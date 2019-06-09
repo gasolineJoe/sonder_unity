@@ -1,36 +1,40 @@
 ﻿using LeopotamGroup.Ecs;
 using LeopotamGroup.Ecs.UnityIntegration;
+using Sonder.Scripts.AssetHandlers;
+using Sonder.Scripts.Systems;
 using UnityEngine;
 
-public class GameStartup : MonoBehaviour {
-    public SonderStartupData assets;
+namespace Sonder.Scripts {
+    public class GameStartup : MonoBehaviour {
+        public SonderStartupData assets;
 
-    EcsSonderGameWorld _world;
-    EcsSystems _systems;
+        EcsSonderGameWorld _world;
+        EcsSystems _systems;
 
-    void OnEnable() {
-        _world = new EcsSonderGameWorld(assets);
+        void OnEnable() {
+            _world = new EcsSonderGameWorld(assets);
 #if UNITY_EDITOR
-        EcsWorldObserver.Create(_world);
+            EcsWorldObserver.Create(_world);
 #endif
-        _systems = new EcsSystems(_world)
-                .Add(new SpawnSystem())
-                .Add(new UserInputProcessing())
-                .Add(new MoveProcessing())
-                .Add(new ObjectUseSystem())
-                .Add(new DumbAiSystem())
-            ;
-        _systems.Initialize();
+            _systems = new EcsSystems(_world)
+                    .Add(new SpawnSystem())
+                    .Add(new UserInputProcessing())
+                    .Add(new MoveProcessing())
+                    .Add(new ObjectUseSystem())
+                    .Add(new DumbAiSystem())
+                ;
+            _systems.Initialize();
 #if UNITY_EDITOR
-        EcsSystemsObserver.Create(_systems);
+            EcsSystemsObserver.Create(_systems);
 #endif
-    }
+        }
 
-    void Update() {
-        _systems.Run();
-    }
+        void Update() {
+            _systems.Run();
+        }
 
-    void OnDisable() {
-        _systems.Destroy();
+        void OnDisable() {
+            _systems.Destroy();
+        }
     }
 }

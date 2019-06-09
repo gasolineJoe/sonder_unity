@@ -1,5 +1,7 @@
 ﻿using UnityEngine;
 
-public class DoorTag : MonoBehaviour {
-    //just to ease finding this shiet
+namespace Sonder.Scripts.UnityConnectStubs {
+    public class DoorTag : MonoBehaviour {
+        //just to ease finding this shiet
+    }
 }

@@ -25,9 +25,6 @@ namespace Sonder.Scripts.Components.Entities {
             human.Disabable = world.AddComponent<Disabable>(entity);
             human.Storage = world.AddComponent<Storage>(entity);
             human.ActionQueue = world.AddComponent<ActionQueue>(entity);
-            //todo test
-            human.ActionQueue.AddAction(Action.Walk, 10);
-            //todo test
             human.Disabable.Sprites = humanObject.GetComponentsInChildren<SpriteRenderer>();
             var renderer = world.AddComponent<DrawableSprite>(entity);
             renderer.SpriteRenderer = humanObject.GetComponent<SpriteRenderer>();
@@ -42,7 +39,7 @@ namespace Sonder.Scripts.Components.Entities {
             Disabable.SetActive(true);
             return this;
         }
-        
+
         public void TravelTo(Room newRoom) {
             Body.Tr.SetParent(newRoom.Body.Tr);
             var oldRoom = Movable.CurrentRoom;

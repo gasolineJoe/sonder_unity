@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Runtime.Remoting.Messaging;
 using LeopotamGroup.Ecs;
 using Sonder.Scripts.Components.Abilities;
 using Sonder.Scripts.Components.Abilities.Mind;
@@ -29,19 +28,31 @@ namespace Sonder.Scripts.Systems {
         private void Move(Movable movable, ActionQueue actionQueue) {
             var tr = movable.Body.Tr;
             var to = actionQueue.GetAction().Item2;
+            var currentPosition = tr.localPosition.x;
             var xDelta = movable.CurrentSpeed * movable.MaxSpeed * Delay;
-            var timeToStop = 1 / movable.Acceleration;
-            var lengthToStop = movable.MaxSpeed / 1.82f * timeToStop;
-            Debug.Log("time to stop " + timeToStop + "; length to stop = " + lengthToStop);
-            movable.CurrentSpeed = GetSpeed(movable.CurrentSpeed, movable.Acceleration, tr.localPosition.x, to,
-                lengthToStop, Delay);
+            SetLengthToStop(currentPosition, movable, to);
+            SetSpeed(movable, currentPosition, to, Delay);
+            if (IsSlow(movable, actionQueue)) return;
+            TranslateWithBounds(tr, xDelta, movable.Body.Size, movable.CurrentRoom.Body.Size);
+        }
+
+        private Boolean IsSlow(Movable movable, ActionQueue queue) {
             if (Math.Abs(movable.CurrentSpeed) < 0.01f) {
-                actionQueue.ActionDone();
-                Debug.Log(tr.localPosition.x);
-                return;
+                queue.ActionDone();
+                movable.LengthToStop = 0;
+                return true;
             }
 
-            TranslateWithBounds(tr, xDelta, movable.Body.Size, movable.CurrentRoom.Body.Size);
+            return false;
+        }
+
+        private void SetLengthToStop(float position, Movable movable, float target) {
+            if (Math.Abs(movable.LengthToStop) < 0.01f) {
+                var timeToStop = 1 / movable.Acceleration;
+                movable.LengthToStop = movable.MaxSpeed / 1.82f * timeToStop;
+                if (movable.LengthToStop * 2 > Math.Abs(target - position))
+                    movable.LengthToStop = Math.Abs(target - position) / 2;
+            }
         }
 
         private void TranslateWithBounds(Transform tr, float xDelta, float trSize, float rightBound) {
@@ -56,10 +67,13 @@ namespace Sonder.Scripts.Systems {
             }
         }
 
-        private float GetSpeed(float currentSpeed, float acceleration, float position, float target, float closeRange,
-            float delta) {
+        private void SetSpeed(Movable movable, float position, float target, float delta) {
+            var currentSpeed = movable.CurrentSpeed;
+            var acceleration = movable.Acceleration;
+            var closeRange = movable.LengthToStop;
             var range = target - position;
             float newSpeed;
+            //todo fix bug: close range doesn't work
             if (Math.Abs(range) > closeRange) {
                 newSpeed = currentSpeed + Math.Sign(range) * acceleration * delta;
             }
@@ -69,7 +83,7 @@ namespace Sonder.Scripts.Systems {
                     newSpeed = 0;
             }
 
-            return BoundValue(newSpeed, 1);
+            movable.CurrentSpeed = BoundValue(newSpeed, 1);
         }
 
         private float BoundValue(float value, float bound) {

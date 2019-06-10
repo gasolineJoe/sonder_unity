@@ -3,11 +3,15 @@
 namespace Sonder.Scripts {
     public class CompleteCameraController : MonoBehaviour {
         public Transform playerTransform;
+        private bool _isPlayerTransformNotNull;
+        private void Start() {
+            _isPlayerTransformNotNull = playerTransform != null;
+        }
 
-        void LateUpdate() {
-            if (playerTransform != null)
-                transform.position = playerTransform.position;
-            transform.position = new Vector3(transform.position.x + 1, transform.position.y + 4, -10);
+        private void LateUpdate() {
+            if (!_isPlayerTransformNotNull) return;
+            var pos = playerTransform.position;
+            transform.position = new Vector3(pos.x + 1, pos.y + 4, -10);
         }
     }
 }

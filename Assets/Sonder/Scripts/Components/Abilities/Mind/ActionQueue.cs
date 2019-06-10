@@ -10,13 +10,13 @@ namespace Sonder.Scripts.Components.Abilities.Mind {
     }
 
     public class ActionQueue {
-        private List<Tuple<Action, int>> _queue = new List<Tuple<Action, int>>();
+        private List<Tuple<Action, float>> _queue = new List<Tuple<Action, float>>();
 
         public Boolean HasActions() {
             return _queue.Count > 0;
         }
 
-        public Tuple<Action, int> GetAction() {
+        public Tuple<Action, float> GetAction() {
             if (_queue.Count > 0) {
                 return _queue.First();
             }
@@ -31,8 +31,8 @@ namespace Sonder.Scripts.Components.Abilities.Mind {
             _queue.Clear();
         }
 
-        public void AddAction(Action action, int argument) {
-            _queue.Add(new Tuple<Action, int>(action, argument));
+        public void AddAction(Action action, float argument) {
+            _queue.Add(new Tuple<Action, float>(action, argument));
         }
     }
 }

@@ -17,7 +17,7 @@ namespace Sonder.Scripts.Components.Entities {
             var human = world.AddComponent<Human>(entity);
             human._entity = entity;
             human.Body = world.AddComponent<Body>(entity);
-            human.Body.init(humanObject.transform, 2);
+            human.Body.init(humanObject.transform, 2, 3);
             human.Movable = world.AddComponent<Movable>(entity);
             human.Movable.Body = human.Body;
             human.Movable.CurrentRoom = startRoom;

@@ -17,8 +17,8 @@ namespace Sonder.Scripts.Systems {
                 var human = _humanUsers.Components1[i];
                 user.ObjectToUse = null;
                 foreach (var usable in human.Movable.CurrentRoom.Usables) {
-                    if (human.Body.Tr.position.x + human.Body.Size > usable.Body.Tr.position.x &&
-                        human.Body.Tr.position.x < usable.Body.Tr.position.x + usable.Body.Size) {
+                    if (human.Body.Tr.position.x + human.Body.Size.x > usable.Body.Tr.position.x &&
+                        human.Body.Tr.position.x < usable.Body.Tr.position.x + usable.Body.Size.x) {
                         user.ObjectToUse = usable;
                         break;
                     }

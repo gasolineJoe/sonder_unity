@@ -28,17 +28,17 @@ namespace Sonder.Scripts.Systems {
         private void Move(Movable movable, ActionQueue actionQueue) {
             var tr = movable.Body.Tr;
             var to = FixTarget(actionQueue.GetAction().Item2, movable);
-            var currentPosition = tr.localPosition.x + movable.Body.Size/2;
+            var currentPosition = tr.localPosition.x + movable.Body.Size.x/2;
             var xDelta = movable.CurrentSpeed * movable.MaxSpeed * Delay;
             SetLengthToStop(currentPosition, movable, to);
             SetSpeed(movable, currentPosition, to, Delay);
-            TranslateWithBounds(movable, tr, xDelta, movable.Body.Size, movable.CurrentRoom.Body.Size);
+            TranslateWithBounds(movable, tr, xDelta, movable.Body.Size.x, movable.CurrentRoom.Body.Size.x);
             CheckDone(movable, actionQueue);
         }
 
         private float FixTarget(float target, Movable movable) {
             if (target < 0) return 0;
-            if (target > movable.CurrentRoom.Body.Size) return movable.CurrentRoom.Body.Size - 1;
+            if (target > movable.CurrentRoom.Body.Size.x) return movable.CurrentRoom.Body.Size.x - 1;
             return target;
         }
 

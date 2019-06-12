@@ -12,9 +12,9 @@ namespace Sonder.Scripts.Components.Abilities {
         public Type UsableType;
         public UsableObject UsableObject;
 
-        public void Set(UsableObject usableObject, Type usableType, Transform tr, float size) {
+        public void Set(UsableObject usableObject, Type usableType, Transform tr, float width, float height) {
             Body = new Body();
-            Body.init(tr, size);
+            Body.init(tr, width, height);
             UsableType = usableType;
             UsableObject = usableObject;
             usableObject.Usable = this;

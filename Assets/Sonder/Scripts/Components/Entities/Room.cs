@@ -18,7 +18,7 @@ namespace Sonder.Scripts.Components.Entities {
             var newRoom = world.AddComponent<Room>(roomEntity);
             var disabable = world.AddComponent<Disabable>(roomEntity);
             newRoom.Body = world.AddComponent<Body>(roomEntity);
-            newRoom.Body.init(roomObject.GetComponent<Transform>(), roomObject.GetComponent<Collider2D>().bounds.size.x);
+            newRoom.Body.init(roomObject.GetComponent<Transform>(), roomObject.GetComponent<Collider2D>().bounds.size.x, 10);
             newRoom.Disabable = disabable;
             newRoom.Disabable.Sprites = roomObject.GetComponentsInChildren<SpriteRenderer>();
             newRoom.Disabable.SetActive(false);

@@ -15,7 +15,7 @@ namespace Sonder.Scripts.Components.Entities {
             items.Add(new Nail());
             items.Add(new Apple());
             newBox.Items = items;
-            world.AddComponent<Usable>(entity).Set(newBox, Usable.Type.Box, boxObject.transform, 3);
+            world.AddComponent<Usable>(entity).Set(newBox, Usable.Type.Box, boxObject.transform, 3, 1);
             return newBox;
         }
     }

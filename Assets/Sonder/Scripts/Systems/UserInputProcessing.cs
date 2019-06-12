@@ -20,7 +20,10 @@ namespace Sonder.Scripts.Systems {
                     for (var j = 0; j < human.Movable.CurrentRoom.Usables.Count; j++) {
                         var usable = human.Movable.CurrentRoom.Usables[j];
                         if (point.x > usable.Body.Tr.localPosition.x &&
-                            usable.Body.Size > point.x - usable.Body.Tr.localPosition.x) {
+                            usable.Body.Size.x > point.x - usable.Body.Tr.localPosition.x &&
+                            point.y > usable.Body.Tr.localPosition.y &&
+                            usable.Body.Size.y > point.y - usable.Body.Tr.localPosition.y
+                            ) {
                             Debug.Log("Clicked Usable item " + usable);
                             return;
                         }

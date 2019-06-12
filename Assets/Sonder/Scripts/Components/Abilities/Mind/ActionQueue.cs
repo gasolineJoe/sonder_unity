@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Boo.Lang;
+using UnityEngine;
 
 namespace Sonder.Scripts.Components.Abilities.Mind {
     public enum Action {
@@ -10,17 +11,14 @@ namespace Sonder.Scripts.Components.Abilities.Mind {
     }
 
     public class ActionQueue {
-        private List<Tuple<Action, float>> _queue = new List<Tuple<Action, float>>();
+        private readonly List<Tuple<Action, object>> _queue = new List<Tuple<Action, object>>();
 
         public Boolean HasActions() {
             return _queue.Count > 0;
         }
 
-        public Tuple<Action, float> GetAction() {
-            if (_queue.Count > 0) {
-                return _queue.First();
-            }
-            return null;
+        public Tuple<Action, object> GetAction() {
+            return _queue.Count > 0 ? _queue.First() : null;
         }
 
         public void ActionDone() {
@@ -31,8 +29,16 @@ namespace Sonder.Scripts.Components.Abilities.Mind {
             _queue.Clear();
         }
 
-        public void AddAction(Action action, float argument) {
-            _queue.Add(new Tuple<Action, float>(action, argument));
+        private void AddAction(Action action, object argument) {
+            _queue.Add(new Tuple<Action, object>(action, argument));
+        }
+
+        public void AddWalk(float point) {
+            AddAction(Action.Walk, point);
+        }
+
+        public void AddUse(Usable usable) {
+            AddAction(Action.Use, usable);
         }
     }
 }

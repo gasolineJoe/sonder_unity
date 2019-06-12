@@ -7,30 +7,31 @@ using UnityEngine;
 namespace Sonder.Scripts.Systems {
     [EcsInject]
     public class UserInputProcessing : IEcsRunSystem {
-        EcsFilter<Human, Movable, InputControlled> _controlledEntities = null;
-        EcsFilter<ObjectUser, InputControlled> _controlledUsers = null;
-        EcsFilter<Storage, InputControlled> _controlledStorages = null;
+        EcsFilter<Human, ActionQueue, InputControlled> _controlledEntities = null;
         private readonly Camera _camera = Object.FindObjectOfType<Camera>();
 
         public void Run() {
             if (Input.GetMouseButtonDown(0)) {
-                var point = _camera.ScreenToWorldPoint(Input.mousePosition);
+                var worldPoint = _camera.ScreenToWorldPoint(Input.mousePosition);
                 for (var i = 0; i < _controlledEntities.EntitiesCount; i++) {
                     var human = _controlledEntities.Components1[i];
+                    var point = human.Movable.CurrentRoom.Body.Tr.InverseTransformPoint(worldPoint);
                     for (var j = 0; j < human.Movable.CurrentRoom.Usables.Count; j++) {
                         var usable = human.Movable.CurrentRoom.Usables[j];
                         if (point.x > usable.Body.Tr.localPosition.x &&
                             usable.Body.Size.x > point.x - usable.Body.Tr.localPosition.x &&
                             point.y > usable.Body.Tr.localPosition.y &&
                             usable.Body.Size.y > point.y - usable.Body.Tr.localPosition.y
-                            ) {
-                            Debug.Log("Clicked Usable item " + usable);
+                        ) {
+                            human.ActionQueue.Interrupt();
+                            human.ActionQueue.AddWalk(usable.Body.Tr.localPosition.x + usable.Body.Size.x / 2);
+                            human.ActionQueue.AddUse(usable);
                             return;
                         }
                     }
 
                     human.ActionQueue.Interrupt();
-                    human.ActionQueue.AddAction(Action.Walk, point.x);
+                    human.ActionQueue.AddWalk(point.x);
                 }
             }
         }

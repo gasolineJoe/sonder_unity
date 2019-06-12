@@ -27,8 +27,8 @@ namespace Sonder.Scripts.Systems {
 
         private void Move(Movable movable, ActionQueue actionQueue) {
             var tr = movable.Body.Tr;
-            var to = FixTarget(actionQueue.GetAction().Item2, movable);
-            var currentPosition = tr.localPosition.x + movable.Body.Size.x/2;
+            var to = FixTarget((float) actionQueue.GetAction().Item2, movable);
+            var currentPosition = tr.localPosition.x + movable.Body.Size.x / 2;
             var xDelta = movable.CurrentSpeed * movable.MaxSpeed * Delay;
             SetLengthToStop(currentPosition, movable, to);
             SetSpeed(movable, currentPosition, to, Delay);
@@ -36,29 +36,27 @@ namespace Sonder.Scripts.Systems {
             CheckDone(movable, actionQueue);
         }
 
-        private float FixTarget(float target, Movable movable) {
+        private static float FixTarget(float target, Movable movable) {
             if (target < 0) return 0;
             if (target > movable.CurrentRoom.Body.Size.x) return movable.CurrentRoom.Body.Size.x - 1;
             return target;
         }
 
-        private void CheckDone(Movable movable, ActionQueue queue) {
-            if (Math.Abs(movable.CurrentSpeed) < 0.01f) {
-                queue.ActionDone();
-                movable.LengthToStop = 0;
-            }
+        private static void CheckDone(Movable movable, ActionQueue queue) {
+            if (!(Math.Abs(movable.CurrentSpeed) < 0.01f)) return;
+            queue.ActionDone();
+            movable.LengthToStop = 0;
         }
 
-        private void SetLengthToStop(float position, Movable movable, float target) {
-            if (Math.Abs(movable.LengthToStop) < 0.01f) {
-                var timeToStop = 1 / movable.Acceleration;
-                movable.LengthToStop = movable.MaxSpeed / 1.82f * timeToStop;
-                if (movable.LengthToStop * 2 > Math.Abs(target - position))
-                    movable.LengthToStop = Math.Abs(target - position) / 2;
-            }
+        private static void SetLengthToStop(float position, Movable movable, float target) {
+            if (!(Math.Abs(movable.LengthToStop) < 0.01f)) return;
+            var timeToStop = 1 / movable.Acceleration;
+            movable.LengthToStop = movable.MaxSpeed / 1.82f * timeToStop;
+            if (movable.LengthToStop * 2 > Math.Abs(target - position))
+                movable.LengthToStop = Math.Abs(target - position) / 2;
         }
 
-        private void TranslateWithBounds(Movable movable, Transform tr, float xDelta, float trSize, float rightBound) {
+        private static void TranslateWithBounds(Movable movable, Transform tr, float xDelta, float trSize, float rightBound) {
             var rightEdge = tr.localPosition.x + xDelta + trSize;
             if (rightEdge < rightBound && tr.localPosition.x + xDelta > 0)
                 tr.Translate(xDelta, 0, 0);
@@ -80,6 +78,7 @@ namespace Sonder.Scripts.Systems {
             if (Math.Sign(range) != Math.Sign(currentSpeed)) {
                 closeRange = 0;
             }
+
             if (Math.Abs(range) > closeRange) {
                 newSpeed = currentSpeed + Math.Sign(range) * acceleration * delta;
             }
@@ -92,7 +91,7 @@ namespace Sonder.Scripts.Systems {
             movable.CurrentSpeed = BoundValue(newSpeed, 1);
         }
 
-        private float BoundValue(float value, float bound) {
+        private static float BoundValue(float value, float bound) {
             return value > bound ? bound : value < -bound ? -bound : value;
         }
 

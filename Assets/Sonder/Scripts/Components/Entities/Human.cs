@@ -21,7 +21,6 @@ namespace Sonder.Scripts.Components.Entities {
             human.Movable = world.AddComponent<Movable>(entity);
             human.Movable.Body = human.Body;
             human.Movable.CurrentRoom = startRoom;
-            world.AddComponent<ObjectUser>(entity);
             human.Disabable = world.AddComponent<Disabable>(entity);
             human.Storage = world.AddComponent<Storage>(entity);
             human.ActionQueue = world.AddComponent<ActionQueue>(entity);

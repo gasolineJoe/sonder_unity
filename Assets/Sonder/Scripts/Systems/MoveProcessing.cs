@@ -27,23 +27,26 @@ namespace Sonder.Scripts.Systems {
 
         private void Move(Movable movable, ActionQueue actionQueue) {
             var tr = movable.Body.Tr;
-            var to = actionQueue.GetAction().Item2;
-            var currentPosition = tr.localPosition.x;
+            var to = FixTarget(actionQueue.GetAction().Item2, movable);
+            var currentPosition = tr.localPosition.x + movable.Body.Size/2;
             var xDelta = movable.CurrentSpeed * movable.MaxSpeed * Delay;
             SetLengthToStop(currentPosition, movable, to);
             SetSpeed(movable, currentPosition, to, Delay);
-            if (IsSlow(movable, actionQueue)) return;
-            TranslateWithBounds(tr, xDelta, movable.Body.Size, movable.CurrentRoom.Body.Size);
+            TranslateWithBounds(movable, tr, xDelta, movable.Body.Size, movable.CurrentRoom.Body.Size);
+            CheckDone(movable, actionQueue);
         }
 
-        private Boolean IsSlow(Movable movable, ActionQueue queue) {
+        private float FixTarget(float target, Movable movable) {
+            if (target < 0) return 0;
+            if (target > movable.CurrentRoom.Body.Size) return movable.CurrentRoom.Body.Size - 1;
+            return target;
+        }
+
+        private void CheckDone(Movable movable, ActionQueue queue) {
             if (Math.Abs(movable.CurrentSpeed) < 0.01f) {
                 queue.ActionDone();
                 movable.LengthToStop = 0;
-                return true;
             }
-
-            return false;
         }
 
         private void SetLengthToStop(float position, Movable movable, float target) {
@@ -55,11 +58,12 @@ namespace Sonder.Scripts.Systems {
             }
         }
 
-        private void TranslateWithBounds(Transform tr, float xDelta, float trSize, float rightBound) {
+        private void TranslateWithBounds(Movable movable, Transform tr, float xDelta, float trSize, float rightBound) {
             var rightEdge = tr.localPosition.x + xDelta + trSize;
             if (rightEdge < rightBound && tr.localPosition.x + xDelta > 0)
                 tr.Translate(xDelta, 0, 0);
             else {
+                movable.CurrentSpeed = movable.CurrentSpeed / 2;
                 if (rightEdge < rightBound)
                     tr.Translate(-tr.localPosition.x, 0, 0);
                 else
@@ -73,7 +77,9 @@ namespace Sonder.Scripts.Systems {
             var closeRange = movable.LengthToStop;
             var range = target - position;
             float newSpeed;
-            //todo fix bug: close range doesn't work
+            if (Math.Sign(range) != Math.Sign(currentSpeed)) {
+                closeRange = 0;
+            }
             if (Math.Abs(range) > closeRange) {
                 newSpeed = currentSpeed + Math.Sign(range) * acceleration * delta;
             }

@@ -17,6 +17,15 @@ namespace Sonder.Scripts.Systems {
                 var point = _camera.ScreenToWorldPoint(Input.mousePosition);
                 for (var i = 0; i < _controlledEntities.EntitiesCount; i++) {
                     var human = _controlledEntities.Components1[i];
+                    for (var j = 0; j < human.Movable.CurrentRoom.Usables.Count; j++) {
+                        var usable = human.Movable.CurrentRoom.Usables[j];
+                        if (point.x > usable.Body.Tr.localPosition.x &&
+                            usable.Body.Size > point.x - usable.Body.Tr.localPosition.x) {
+                            Debug.Log("Clicked Usable item " + usable);
+                            return;
+                        }
+                    }
+
                     human.ActionQueue.Interrupt();
                     human.ActionQueue.AddAction(Action.Walk, point.x);
                 }

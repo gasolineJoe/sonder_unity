@@ -1,3 +1,6 @@
+using System;
+using System.Collections.Generic;
+using System.Linq;
 using Sonder.Scripts.Components.Abilities;
 using Sonder.Scripts.Components.Abilities.Mind;
 using UnityEngine;
@@ -60,6 +63,50 @@ namespace Sonder.Scripts.Components.Entities {
             newRoom.LocalHumans.Add(this);
             if (!_inputControlled) Disabable.SetActive(newRoom.Disabable.Active);
             Movable.CurrentRoom = newRoom;
+        }
+
+        public void WalkTo(Room room) {
+            if (Movable.CurrentRoom == room) return;
+            var path = getMinimalPath(room, Movable.CurrentRoom);
+            ActionQueue.Interrupt();
+            for (int i = 0; i < path.Count; i++) {
+                ActionQueue.AddWalk(path[i].Usable.Body.Tr.localPosition.x + path[i].Usable.Body.Size.x / 2);
+                ActionQueue.AddUse(path[i].Usable);
+            }
+        }
+
+        private static List<Door> getMinimalPath(Room targetRoom, Room startRoom) {
+            var currentDoors = new List<Tuple<List<Door>, int>>();
+            var startingPath = new List<Door>();
+            var searchedRooms = new List<Room>();
+            var startDoor = new Door {Destination = new Door {Source = startRoom}};
+            startingPath.Add(startDoor);
+            currentDoors.Add(new Tuple<List<Door>, int>(startingPath, int.MaxValue));
+
+            while (currentDoors.Count > 0) {
+                var nextDoors = new List<Tuple<List<Door>, int>>();
+                for (var i = 0; i < currentDoors.Count; i++) {
+                    var currentDoor = currentDoors[i].Item1.Last();
+                    var currentRoom = currentDoor.Destination.Source;
+                    if (targetRoom == currentRoom) {
+                        var result = currentDoors[i].Item1;
+                        result.Remove(result.First());
+                        return result;
+                    }
+
+                    for (var d = 0; d < currentRoom.Doors.Count; d++) {
+                        if (searchedRooms.Contains(currentRoom.Doors[d].Destination.Source)) continue;
+                        var currentList = new List<Door>(currentDoors[i].Item1) {currentRoom.Doors[d]};
+                        nextDoors.Add(new Tuple<List<Door>, int>(currentList, currentDoors[i].Item2 + 20));
+                    }
+
+                    searchedRooms.Add(currentRoom);
+                }
+
+                currentDoors = nextDoors;
+            }
+
+            return new List<Door>();
         }
     }
 }

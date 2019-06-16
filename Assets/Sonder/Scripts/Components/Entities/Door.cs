@@ -6,6 +6,7 @@ namespace Sonder.Scripts.Components.Entities {
     public class Door : UsableObject {
         public Door Destination;
         public Room Source;
+        public Usable Usable;
 
         public void ConnectTo(Door door) {
             if (Destination == null && door.Destination == null) {
@@ -21,7 +22,8 @@ namespace Sonder.Scripts.Components.Entities {
         public static Door New(EcsSonderGameWorld world, GameObject doorObject, Room sourceRoom) {
             var entity = world.CreateEntity();
             var newDoor = world.AddComponent<Door>(entity);
-            world.AddComponent<Usable>(entity).Set(newDoor, Usable.Type.Door, doorObject.transform, 2.5f, 4);
+            newDoor.Usable = world.AddComponent<Usable>(entity);
+            newDoor.Usable.Set(newDoor, Usable.Type.Door, doorObject.transform, 2.5f, 4);
             newDoor.Source = sourceRoom;
             return newDoor;
         }

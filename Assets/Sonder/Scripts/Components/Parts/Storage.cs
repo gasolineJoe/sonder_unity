@@ -1,7 +1,7 @@
 using System.Collections.Generic;
-using Sonder.Scripts.Components.Items;
+using Sonder.Scripts.Components.World.Items;
 
-namespace Sonder.Scripts.Components.Abilities {
+namespace Sonder.Scripts.Components.Parts {
     public class Storage {
         public readonly List<Item> Inventory = new List<Item>();
 

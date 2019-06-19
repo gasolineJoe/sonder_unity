@@ -1,7 +1,7 @@
 ﻿using LeopotamGroup.Ecs;
 using Sonder.Scripts.Components.Abilities;
-using Sonder.Scripts.Components.Abilities.Mind;
-using Sonder.Scripts.Components.Entities;
+using Sonder.Scripts.Components.Parts.Mind;
+using Sonder.Scripts.Components.World.Entities;
 using UnityEngine;
 
 namespace Sonder.Scripts.Systems {

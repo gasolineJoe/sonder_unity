@@ -1,3 +1,3 @@
-namespace Sonder.Scripts.Components.Items {
+namespace Sonder.Scripts.Components.World.Items {
     abstract public class Item { }
 }

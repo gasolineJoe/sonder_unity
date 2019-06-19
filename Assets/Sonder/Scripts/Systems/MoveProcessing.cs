@@ -1,7 +1,7 @@
-﻿using DefaultNamespace;
-using LeopotamGroup.Ecs;
+﻿using LeopotamGroup.Ecs;
+using Sonder.Scripts.Actions.ActionExecutors;
 using Sonder.Scripts.Components.Abilities;
-using Sonder.Scripts.Components.Abilities.Mind;
+using Sonder.Scripts.Components.Parts.Mind;
 
 namespace Sonder.Scripts.Systems {
     [EcsInject]

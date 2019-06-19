@@ -1,4 +1,5 @@
-using Sonder.Scripts.Components.Entities;
+using Sonder.Scripts.Components.Parts;
+using Sonder.Scripts.Components.World.Entities.Usables;
 using UnityEngine;
 
 namespace Sonder.Scripts.Components.Abilities {
@@ -12,9 +13,8 @@ namespace Sonder.Scripts.Components.Abilities {
         public Type UsableType;
         public UsableObject UsableObject;
 
-        public void Set(UsableObject usableObject, Type usableType, Transform tr, float width, float height) {
-            Body = new Body();
-            Body.init(tr, width, height);
+        public void Set(UsableObject usableObject, Type usableType, Body body) {
+            Body = body;
             UsableType = usableType;
             UsableObject = usableObject;
             usableObject.Usable = this;

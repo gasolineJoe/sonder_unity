@@ -1,8 +1,9 @@
-﻿using DefaultNamespace;
-using LeopotamGroup.Ecs;
+﻿using LeopotamGroup.Ecs;
+using Sonder.Scripts.Actions.Stuff;
 using Sonder.Scripts.Components.Abilities;
-using Sonder.Scripts.Components.Abilities.Mind;
-using Sonder.Scripts.Components.Entities;
+using Sonder.Scripts.Components.Parts.Mind;
+using Sonder.Scripts.Components.World.Entities;
+using Sonder.Scripts.Components.World.Entities.Usables;
 using UnityEngine;
 
 namespace Sonder.Scripts.Systems {

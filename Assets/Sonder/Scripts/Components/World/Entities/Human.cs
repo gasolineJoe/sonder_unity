@@ -1,8 +1,9 @@
 using Sonder.Scripts.Components.Abilities;
-using Sonder.Scripts.Components.Abilities.Mind;
+using Sonder.Scripts.Components.Parts;
+using Sonder.Scripts.Components.Parts.Mind;
 using UnityEngine;
 
-namespace Sonder.Scripts.Components.Entities {
+namespace Sonder.Scripts.Components.World.Entities {
     public class Human {
         private int _entity;
         public bool InputControlled;
@@ -17,7 +18,7 @@ namespace Sonder.Scripts.Components.Entities {
             var human = world.AddComponent<Human>(entity);
             human._entity = entity;
             var body = world.AddComponent<Body>(entity);
-            body.init(humanObject.transform, 2, 3);
+            body.init(humanObject);
             human.WorldPosition = world.AddComponent<WorldPosition>(entity);
             human.WorldPosition.init(body, startRoom);
             human.Movable = world.AddComponent<Movable>(entity);

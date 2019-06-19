@@ -1,8 +1,9 @@
 using System;
 using System.Linq;
 using Boo.Lang;
+using Sonder.Scripts.Components.Abilities;
 
-namespace Sonder.Scripts.Components.Abilities.Mind {
+namespace Sonder.Scripts.Components.Parts.Mind {
     public enum Action {
         Walk,
         Use,

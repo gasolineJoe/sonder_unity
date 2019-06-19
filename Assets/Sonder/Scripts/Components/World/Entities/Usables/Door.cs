@@ -1,8 +1,9 @@
 ﻿using System;
 using Sonder.Scripts.Components.Abilities;
+using Sonder.Scripts.Components.Parts;
 using UnityEngine;
 
-namespace Sonder.Scripts.Components.Entities {
+namespace Sonder.Scripts.Components.World.Entities.Usables {
     public class Door : UsableObject {
         public Door Destination;
         public Room Source;
@@ -23,7 +24,9 @@ namespace Sonder.Scripts.Components.Entities {
             var entity = world.CreateEntity();
             var newDoor = world.AddComponent<Door>(entity);
             newDoor.Usable = world.AddComponent<Usable>(entity);
-            newDoor.Usable.Set(newDoor, Usable.Type.Door, doorObject.transform, 2.5f, 4);
+            var body = world.AddComponent<Body>(entity);
+            body.init(doorObject);
+            newDoor.Usable.Set(newDoor, Usable.Type.Door, body);
             newDoor.Source = sourceRoom;
             return newDoor;
         }

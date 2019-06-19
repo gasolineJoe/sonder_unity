@@ -1,9 +1,10 @@
 using System;
 using Sonder.Scripts.Components.Abilities;
-using Sonder.Scripts.Components.Abilities.Mind;
+using Sonder.Scripts.Components.Parts.Mind;
+using Sonder.Scripts.Utils;
 using UnityEngine;
 
-namespace DefaultNamespace {
+namespace Sonder.Scripts.Actions.ActionExecutors {
     public static class Move {
         public static void Do(Movable movable, ActionQueue actionQueue, float delay) {
             var tr = movable.WorldPosition.Body.Tr;

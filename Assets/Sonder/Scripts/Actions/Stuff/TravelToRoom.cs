@@ -1,6 +1,6 @@
-using Sonder.Scripts.Components.Entities;
+using Sonder.Scripts.Components.World.Entities;
 
-namespace DefaultNamespace {
+namespace Sonder.Scripts.Actions.Stuff {
     public static class TravelToRoom {
         public static void Do(Human human, Room newRoom) {
             human.WorldPosition.Body.Tr.SetParent(newRoom.Body.Tr);

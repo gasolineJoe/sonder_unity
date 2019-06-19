@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
-using DefaultNamespace;
 using LeopotamGroup.Ecs;
-using Sonder.Scripts.Components.Entities;
+using Sonder.Scripts.Actions.Stuff;
+using Sonder.Scripts.Components.World.Entities;
+using Sonder.Scripts.Components.World.Entities.Usables;
 using UnityEngine;
 
 namespace Sonder.Scripts.Systems {

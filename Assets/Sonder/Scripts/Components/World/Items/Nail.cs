@@ -1,4 +1,4 @@
-namespace Sonder.Scripts.Components.Items {
+namespace Sonder.Scripts.Components.World.Items {
     public class Nail : Item {
         public override string ToString() {
             return "nail";

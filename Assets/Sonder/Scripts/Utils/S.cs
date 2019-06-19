@@ -1,4 +1,4 @@
-namespace DefaultNamespace {
+namespace Sonder.Scripts.Utils {
     public static class S {
         public static float BoundValue(float value, float bound) {
             return BoundValue(value, -bound, bound);

@@ -1,6 +1,6 @@
-using Sonder.Scripts.Components.Entities;
+using Sonder.Scripts.Components.World.Entities;
 
-namespace Sonder.Scripts.Components.Abilities {
+namespace Sonder.Scripts.Components.Parts {
     public class WorldPosition {
         public Body Body;
         public Room Room;

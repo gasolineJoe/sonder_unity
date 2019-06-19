@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
 using Sonder.Scripts.Components.Abilities;
+using Sonder.Scripts.Components.Parts;
+using Sonder.Scripts.Components.World.Entities.Usables;
 using Sonder.Scripts.UnityConnectStubs;
 using UnityEngine;
 
-namespace Sonder.Scripts.Components.Entities {
+namespace Sonder.Scripts.Components.World.Entities {
     public class Room {
         public Body Body;
         public readonly List<Door> Doors = new List<Door>();
@@ -18,8 +20,7 @@ namespace Sonder.Scripts.Components.Entities {
             var newRoom = world.AddComponent<Room>(roomEntity);
             var disabable = world.AddComponent<Disabable>(roomEntity);
             newRoom.Body = world.AddComponent<Body>(roomEntity);
-            newRoom.Body.init(roomObject.GetComponent<Transform>(), roomObject.GetComponent<Collider2D>().bounds.size.x,
-                10);
+            newRoom.Body.init(roomObject);
             newRoom.Disabable = disabable;
             newRoom.Disabable.Sprites = roomObject.GetComponentsInChildren<SpriteRenderer>();
             newRoom.Disabable.SetActive(false);

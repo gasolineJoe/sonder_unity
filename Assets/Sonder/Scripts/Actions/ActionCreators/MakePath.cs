@@ -1,9 +1,10 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Sonder.Scripts.Components.Entities;
+using Sonder.Scripts.Components.World.Entities;
+using Sonder.Scripts.Components.World.Entities.Usables;
 
-namespace DefaultNamespace {
+namespace Sonder.Scripts.Actions.ActionCreators {
     public static class MakePath {
         public static void Do(Human human, Room room) {
             if (human.Movable.WorldPosition.Room == room) return;

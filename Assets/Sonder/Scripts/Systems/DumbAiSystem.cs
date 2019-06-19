@@ -1,9 +1,9 @@
 ﻿using System;
-using DefaultNamespace;
 using LeopotamGroup.Ecs;
+using Sonder.Scripts.Actions.ActionCreators;
 using Sonder.Scripts.Components.Abilities;
-using Sonder.Scripts.Components.Abilities.Mind;
-using Sonder.Scripts.Components.Entities;
+using Sonder.Scripts.Components.Parts.Mind;
+using Sonder.Scripts.Components.World.Entities;
 
 namespace Sonder.Scripts.Systems {
     [EcsInject]

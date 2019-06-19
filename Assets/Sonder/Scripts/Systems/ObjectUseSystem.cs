@@ -1,10 +1,9 @@
-﻿using System;
+﻿using DefaultNamespace;
 using LeopotamGroup.Ecs;
 using Sonder.Scripts.Components.Abilities;
 using Sonder.Scripts.Components.Abilities.Mind;
 using Sonder.Scripts.Components.Entities;
 using UnityEngine;
-using Action = Sonder.Scripts.Components.Abilities.Mind.Action;
 
 namespace Sonder.Scripts.Systems {
     [EcsInject]
@@ -28,9 +27,9 @@ namespace Sonder.Scripts.Systems {
                         var newRoom = door.Destination.Source;
 
                         newPos = new Vector3(newPos.x, newRoom.Floor, newPos.z);
-                        human.Body.Tr.position = newPos;
+                        human.WorldPosition.Body.Tr.position = newPos;
 
-                        human.TravelTo(newRoom);
+                        TravelToRoom.Do(human, newRoom);
                         actionQueue.ActionDone();
                         break;
                 }

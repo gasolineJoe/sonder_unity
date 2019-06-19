@@ -1,7 +1,7 @@
 namespace Sonder.Scripts.Components.Items {
-    public class Apple : Item{
+    public class Nail : Item {
         public override string ToString() {
-            return "apple";
+            return "nail";
         }
     }
 }

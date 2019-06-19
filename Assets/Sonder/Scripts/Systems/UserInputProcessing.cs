@@ -15,14 +15,10 @@ namespace Sonder.Scripts.Systems {
                 var worldPoint = _camera.ScreenToWorldPoint(Input.mousePosition);
                 for (var i = 0; i < _controlledEntities.EntitiesCount; i++) {
                     var human = _controlledEntities.Components1[i];
-                    var point = human.Movable.CurrentRoom.Body.Tr.InverseTransformPoint(worldPoint);
-                    for (var j = 0; j < human.Movable.CurrentRoom.Usables.Count; j++) {
-                        var usable = human.Movable.CurrentRoom.Usables[j];
-                        if (point.x > usable.Body.Tr.localPosition.x &&
-                            usable.Body.Size.x > point.x - usable.Body.Tr.localPosition.x &&
-                            point.y > usable.Body.Tr.localPosition.y &&
-                            usable.Body.Size.y > point.y - usable.Body.Tr.localPosition.y
-                        ) {
+                    var point = human.Movable.WorldPosition.Room.Body.Tr.InverseTransformPoint(worldPoint);
+                    for (var j = 0; j < human.Movable.WorldPosition.Room.Usables.Count; j++) {
+                        var usable = human.Movable.WorldPosition.Room.Usables[j];
+                        if (usable.Body.isInBounds(point)) {
                             human.ActionQueue.Interrupt();
                             human.ActionQueue.AddWalk(usable.Body.Tr.localPosition.x + usable.Body.Size.x / 2);
                             human.ActionQueue.AddUse(usable);

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using DefaultNamespace;
 using LeopotamGroup.Ecs;
 using Sonder.Scripts.Components.Entities;
 using UnityEngine;
@@ -23,7 +24,8 @@ namespace Sonder.Scripts.Systems {
             var doors = new List<Door>();
             doors.AddRange(newStartRoom.Doors);
             while (c < doors.Count) {
-                var newRoom = SpawnRoomWithPosition(_roomsObjects[Random.Range(0, _roomsObjects.Length)], 20 * (c + 1), 0);
+                var newRoom = SpawnRoomWithPosition(_roomsObjects[Random.Range(0, _roomsObjects.Length)], 20 * (c + 1),
+                    0);
                 if (newRoom.Doors.Count > 1) {
                     doors.AddRange(newRoom.Doors.GetRange(1, newRoom.Doors.Count - 1));
                 }
@@ -32,16 +34,17 @@ namespace Sonder.Scripts.Systems {
                 c++;
             }
 
-            for (var i = 0; i < 20; i++) {
+            for (var i = 0; i < 2; i++) {
                 var newHumanObject = Spawn(_humanObject);
                 var human = Human.New(_world, newStartRoom, newHumanObject);
-                human.TravelTo(newStartRoom);
-                human.Body.Tr.position = new Vector3(newHumanObject.transform.position.x, newStartRoom.Floor,
+                TravelToRoom.Do(human, newStartRoom);
+                human.WorldPosition.Body.Tr.position = new Vector3(newHumanObject.transform.position.x,
+                    newStartRoom.Floor,
                     newHumanObject.transform.position.z);
 
                 if (i != 0) continue;
                 GameObject.FindWithTag("MainCamera").GetComponent<CompleteCameraController>().playerTransform =
-                    human.Body.Tr;
+                    human.WorldPosition.Body.Tr;
                 human.MakePlayer(_world);
             }
         }
@@ -57,7 +60,6 @@ namespace Sonder.Scripts.Systems {
             return Object.Instantiate(gameObject, GameObject.FindWithTag("GameWorld").transform);
         }
 
-        public void Destroy() {
-        }
+        public void Destroy() { }
     }
 }

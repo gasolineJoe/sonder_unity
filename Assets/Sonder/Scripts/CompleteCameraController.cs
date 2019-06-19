@@ -4,6 +4,7 @@ namespace Sonder.Scripts {
     public class CompleteCameraController : MonoBehaviour {
         public Transform playerTransform;
         private bool _isPlayerTransformNotNull;
+
         private void Start() {
             _isPlayerTransformNotNull = playerTransform != null;
         }

@@ -1,4 +1,5 @@
 ﻿using System;
+using DefaultNamespace;
 using LeopotamGroup.Ecs;
 using Sonder.Scripts.Components.Abilities;
 using Sonder.Scripts.Components.Abilities.Mind;
@@ -8,7 +9,7 @@ namespace Sonder.Scripts.Systems {
     [EcsInject]
     public class DumbAiSystem : Delayed, IEcsRunSystem, IEcsInitSystem {
         EcsFilter<Human, ActionQueue>.Exclude<InputControlled> _robots = null;
-        private EcsFilter<Room> _rooms;
+        EcsFilter<Room> _rooms;
 
         public void Initialize() {
             Delay = 1;
@@ -20,7 +21,7 @@ namespace Sonder.Scripts.Systems {
             for (var i = 0; i < _robots.EntitiesCount; i++) {
                 var human = _robots.Components1[i];
                 if (!human.ActionQueue.HasActions()) {
-                    human.WalkTo(_rooms.Components1[random.Next(_rooms.EntitiesCount)]);
+                    MakePath.Do(human, _rooms.Components1[random.Next(_rooms.EntitiesCount)]);
                 }
             }
         }

@@ -1,22 +1,31 @@
-﻿using LeopotamGroup.Ecs;
-using UnityEngine;
+﻿using System;
+using DefaultNamespace;
+using LeopotamGroup.Ecs;
+using Sonder.Scripts.Components.Abilities;
+using Sonder.Scripts.Components.Abilities.Mind;
+using Sonder.Scripts.Components.Entities;
 
-[EcsInject]
-public class DumbAiSystem : Delayed, IEcsRunSystem, IEcsInitSystem {
-    EcsFilter<Human, Movable, ObjectUser>.Exclude<InputControlled> _robots = null;
+namespace Sonder.Scripts.Systems {
+    [EcsInject]
+    public class DumbAiSystem : Delayed, IEcsRunSystem, IEcsInitSystem {
+        EcsFilter<Human, ActionQueue>.Exclude<InputControlled> _robots = null;
+        EcsFilter<Room> _rooms;
 
-    public void Initialize() {
-        Delay = 1;
-    }
-
-    public void Run() {
-        if (CantUpdate()) return;
-        for (var i = 0; i < _robots.EntitiesCount; i++) {
-            _robots.Components2[i].Acceleration = Random.Range(-1f, 1f);
-            _robots.Components3[i].UsePressed = Random.Range(0, 2) == 1;
+        public void Initialize() {
+            Delay = 1;
         }
-    }
 
-    public void Destroy() {
+        public void Run() {
+            if (CantUpdate()) return;
+            var random = new Random();
+            for (var i = 0; i < _robots.EntitiesCount; i++) {
+                var human = _robots.Components1[i];
+                if (!human.ActionQueue.HasActions()) {
+                    MakePath.Do(human, _rooms.Components1[random.Next(_rooms.EntitiesCount)]);
+                }
+            }
+        }
+
+        public void Destroy() { }
     }
 }

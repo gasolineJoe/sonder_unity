@@ -1,38 +1,34 @@
-﻿using System;
-using LeopotamGroup.Ecs;
+﻿using LeopotamGroup.Ecs;
+using Sonder.Scripts.Components.Abilities;
+using Sonder.Scripts.Components.Abilities.Mind;
+using Sonder.Scripts.Components.Entities;
 using UnityEngine;
 
-[EcsInject]
-public class UserInputProcessing : IEcsRunSystem {
-    EcsFilter<Movable, InputControlled> _controlledEntities = null;
-    EcsFilter<ObjectUser, InputControlled> _controlledUsers = null;
-    EcsFilter<Storage, InputControlled> _controlledStorages = null;
+namespace Sonder.Scripts.Systems {
+    [EcsInject]
+    public class UserInputProcessing : IEcsRunSystem {
+        EcsFilter<Human, ActionQueue, InputControlled> _controlledEntities = null;
+        private readonly Camera _camera = Object.FindObjectOfType<Camera>();
 
-    float _xAxis;
+        public void Run() {
+            if (Input.GetMouseButtonDown(0)) {
+                var worldPoint = _camera.ScreenToWorldPoint(Input.mousePosition);
+                for (var i = 0; i < _controlledEntities.EntitiesCount; i++) {
+                    var human = _controlledEntities.Components1[i];
+                    var point = human.Movable.WorldPosition.Room.Body.Tr.InverseTransformPoint(worldPoint);
+                    for (var j = 0; j < human.Movable.WorldPosition.Room.Usables.Count; j++) {
+                        var usable = human.Movable.WorldPosition.Room.Usables[j];
+                        if (usable.Body.isInBounds(point)) {
+                            human.ActionQueue.Interrupt();
+                            human.ActionQueue.AddWalk(usable.Body.Tr.localPosition.x + usable.Body.Size.x / 2);
+                            human.ActionQueue.AddUse(usable);
+                            return;
+                        }
+                    }
 
-    public void Run() {
-        _xAxis = Input.GetAxis("Horizontal");
-        for (var i = 0; i < _controlledEntities.EntitiesCount; i++) {
-            _controlledEntities.Components1[i].Acceleration = _xAxis;
-        }
-
-        if (Input.GetKeyDown(KeyCode.F)) {
-            for (var i = 0; i < _controlledUsers.EntitiesCount; i++) {
-                _controlledUsers.Components1[i].UsePressed = true;
-            }
-        }
-
-        if (Input.GetKeyDown(KeyCode.I)) {
-            for (var i = 0; i < _controlledStorages.EntitiesCount; i++) {
-                String result = "inventory: ";
-                for (var j = 0; j < _controlledStorages.Components1[i].Inventory.Count; j++) {
-                    result += _controlledStorages.Components1[i].Inventory[j] + " ";
+                    human.ActionQueue.Interrupt();
+                    human.ActionQueue.AddWalk(point.x);
                 }
-
-                if (_controlledStorages.Components1[i].Inventory.Count == 0) {
-                    result += "empty";
-                }
-                Debug.Log(result);
             }
         }
     }

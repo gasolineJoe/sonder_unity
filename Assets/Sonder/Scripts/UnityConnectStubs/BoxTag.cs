@@ -1,5 +1,7 @@
 using UnityEngine;
 
-public class BoxTag : MonoBehaviour {
-    //just to ease finding this shiet     
+namespace Sonder.Scripts.UnityConnectStubs {
+    public class BoxTag : MonoBehaviour {
+        //just to ease finding this shiet     
+    }
 }

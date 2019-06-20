@@ -22,7 +22,7 @@ namespace Sonder.Scripts.Components.World.Entities {
             newRoom.Body = world.AddComponent<Body>(roomEntity);
             newRoom.Body.init(roomObject);
             newRoom.Disabable = disabable;
-            newRoom.Disabable.Sprites = roomObject.GetComponentsInChildren<SpriteRenderer>();
+            newRoom.Disabable.init(roomObject);
             newRoom.Disabable.SetActive(false);
             newRoom.RegisterDoors(world, roomObject);
             newRoom.RegisterBoxes(world, roomObject);

@@ -26,7 +26,7 @@ namespace Sonder.Scripts.Components.World.Entities {
             human.Disabable = world.AddComponent<Disabable>(entity);
             human.Storage = world.AddComponent<Storage>(entity);
             human.ActionQueue = world.AddComponent<ActionQueue>(entity);
-            human.Disabable.Sprites = humanObject.GetComponentsInChildren<SpriteRenderer>();
+            human.Disabable.init(humanObject);
             var renderer = world.AddComponent<DrawableSprite>(entity);
             renderer.SpriteRenderer = humanObject.GetComponent<SpriteRenderer>();
             renderer.SetRandomColor();

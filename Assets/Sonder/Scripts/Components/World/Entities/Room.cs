@@ -26,6 +26,7 @@ namespace Sonder.Scripts.Components.World.Entities {
             newRoom.Disabable.SetActive(false);
             newRoom.RegisterDoors(world, roomObject);
             newRoom.RegisterBoxes(world, roomObject);
+            newRoom.RegisterSigns(world, roomObject);
             return newRoom;
         }
 
@@ -44,6 +45,14 @@ namespace Sonder.Scripts.Components.World.Entities {
                 var b = Box.New(world, box.gameObject);
                 Boxes.Add(b);
                 Usables.Add(b.Usable);
+            }
+        }
+        
+        private void RegisterSigns(EcsSonderGameWorld world, GameObject room) {
+            var signsInRoom = room.GetComponentsInChildren<SignTag>();
+            foreach (var sign in signsInRoom) {
+                var s = Sign.New(world, sign.gameObject);
+                s.setText("HELLO THERE");
             }
         }
     }

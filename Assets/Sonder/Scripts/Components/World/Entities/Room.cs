@@ -52,7 +52,7 @@ namespace Sonder.Scripts.Components.World.Entities {
             var signsInRoom = room.GetComponentsInChildren<SignTag>();
             foreach (var sign in signsInRoom) {
                 var s = Sign.New(world, sign.gameObject);
-                s.setText("HELLO THERE");
+                s.setText(room.name);
             }
         }
     }

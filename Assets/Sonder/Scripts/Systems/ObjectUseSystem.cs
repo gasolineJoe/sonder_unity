@@ -23,11 +23,11 @@ namespace Sonder.Scripts.Systems {
                     case Usable.Type.Box:
                         break;
                     case Usable.Type.Door:
-                        if (!(usable.UsableObject is Door door)) break;
+                        if (!(usable.UsableEntity is Door door)) break;
                         var newPos = door.Destination.Usable.Body.Tr.position;
                         var newRoom = door.Destination.Source;
-
-                        newPos = new Vector3(newPos.x, newRoom.Floor, newPos.z);
+                        var floorHeight = newRoom.Body.Tr.position.y + newRoom.Floor;
+                        newPos = new Vector3(newPos.x, floorHeight, newPos.z);
                         human.WorldPosition.Body.Tr.position = newPos;
 
                         TravelToRoom.Do(human, newRoom);

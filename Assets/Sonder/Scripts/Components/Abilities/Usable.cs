@@ -11,13 +11,13 @@ namespace Sonder.Scripts.Components.Abilities {
 
         public Body Body;
         public Type UsableType;
-        public UsableObject UsableObject;
+        public UsableEntity UsableEntity;
 
-        public void Set(UsableObject usableObject, Type usableType, Body body) {
+        public void Set(UsableEntity usableEntity, Type usableType, Body body) {
             Body = body;
             UsableType = usableType;
-            UsableObject = usableObject;
-            usableObject.Usable = this;
+            UsableEntity = usableEntity;
+            usableEntity.Usable = this;
         }
     }
 }

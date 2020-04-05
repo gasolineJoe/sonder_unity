@@ -3,17 +3,17 @@ using TMPro;
 using UnityEngine;
 
 namespace Sonder.Scripts.Components.World.Entities {
-    public class Sign {
+    public class Sign : BaseEntity {
         public TextMeshPro text;
 
         public static Sign New(EcsSonderGameWorld world, GameObject gameObject) {
-            var entity = world.CreateEntity();
-            var sign = world.AddComponent<Sign>(entity);
+            var sign = CreateThis<Sign>(world);
+
             sign.text = gameObject.GetComponentInChildren<TextMeshPro>();
             return sign;
         }
 
-        public void setText(String text) {
+        public void SetText(String text) {
             this.text.text = text;
         }
     }

@@ -6,7 +6,7 @@ using Sonder.Scripts.UnityConnectStubs;
 using UnityEngine;
 
 namespace Sonder.Scripts.Components.World.Entities {
-    public class Room {
+    public class Room : BaseEntity {
         public Body Body;
         public readonly List<Door> Doors = new List<Door>();
         public readonly List<Box> Boxes = new List<Box>();
@@ -16,18 +16,19 @@ namespace Sonder.Scripts.Components.World.Entities {
         public readonly List<Human> LocalHumans = new List<Human>();
 
         public static Room New(EcsSonderGameWorld world, GameObject roomObject) {
-            var roomEntity = world.CreateEntity();
-            var newRoom = world.AddComponent<Room>(roomEntity);
-            var disabable = world.AddComponent<Disabable>(roomEntity);
-            newRoom.Body = world.AddComponent<Body>(roomEntity);
-            newRoom.Body.init(roomObject);
-            newRoom.Disabable = disabable;
-            newRoom.Disabable.init(roomObject);
-            newRoom.Disabable.SetActive(false);
-            newRoom.RegisterDoors(world, roomObject);
-            newRoom.RegisterBoxes(world, roomObject);
-            newRoom.RegisterSigns(world, roomObject);
-            return newRoom;
+            var room = CreateThis<Room>(world);
+
+            var disabable = room.AddComponent<Disabable>(world);
+            room.Body = room.AddComponent<Body>(world);
+
+            room.Body.init(roomObject);
+            room.Disabable = disabable;
+            room.Disabable.init(roomObject);
+            room.Disabable.SetActive(false);
+            room.RegisterDoors(world, roomObject);
+            room.RegisterBoxes(world, roomObject);
+            room.RegisterSigns(world, roomObject);
+            return room;
         }
 
         private void RegisterDoors(EcsSonderGameWorld world, GameObject room) {
@@ -47,12 +48,12 @@ namespace Sonder.Scripts.Components.World.Entities {
                 Usables.Add(b.Usable);
             }
         }
-        
+
         private void RegisterSigns(EcsSonderGameWorld world, GameObject room) {
             var signsInRoom = room.GetComponentsInChildren<SignTag>();
             foreach (var sign in signsInRoom) {
                 var s = Sign.New(world, sign.gameObject);
-                s.setText(room.name);
+                s.SetText(room.name);
             }
         }
     }

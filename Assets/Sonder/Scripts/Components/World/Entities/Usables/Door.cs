@@ -4,10 +4,9 @@ using Sonder.Scripts.Components.Parts;
 using UnityEngine;
 
 namespace Sonder.Scripts.Components.World.Entities.Usables {
-    public class Door : UsableObject {
+    public class Door : UsableEntity {
         public Door Destination;
         public Room Source;
-        public Usable Usable;
 
         public void ConnectTo(Door door) {
             if (Destination == null && door.Destination == null) {
@@ -21,14 +20,15 @@ namespace Sonder.Scripts.Components.World.Entities.Usables {
         }
 
         public static Door New(EcsSonderGameWorld world, GameObject doorObject, Room sourceRoom) {
-            var entity = world.CreateEntity();
-            var newDoor = world.AddComponent<Door>(entity);
-            newDoor.Usable = world.AddComponent<Usable>(entity);
-            var body = world.AddComponent<Body>(entity);
+            var door = CreateThis<Door>(world);
+            
+            door.Usable = door.AddComponent<Usable>(world);
+            var body = door.AddComponent<Body>(world);
+            
             body.init(doorObject);
-            newDoor.Usable.Set(newDoor, Usable.Type.Door, body);
-            newDoor.Source = sourceRoom;
-            return newDoor;
+            door.Usable.Set(door, Usable.Type.Door, body);
+            door.Source = sourceRoom;
+            return door;
         }
     }
 }

@@ -5,21 +5,23 @@ using Sonder.Scripts.Components.World.Items;
 using UnityEngine;
 
 namespace Sonder.Scripts.Components.World.Entities.Usables {
-    public class Box : UsableObject {
+    public class Box : UsableEntity {
         public List<Item> Items;
 
         public static Box New(EcsSonderGameWorld world, GameObject boxObject) {
-            var entity = world.CreateEntity();
-            var newBox = world.AddComponent<Box>(entity);
-            var body = world.AddComponent<Body>(entity);
+            var box = CreateThis<Box>(world);
+
+            var body = box.AddComponent<Body>(world);
+            box.Usable = box.AddComponent<Usable>(world);
+            
+            body.init(boxObject);
+            box.Usable.Set(box, Usable.Type.Box, body);
             List<Item> items = new List<Item>();
             items.Add(new Apple());
             items.Add(new Nail());
             items.Add(new Apple());
-            newBox.Items = items;
-            body.init(boxObject);
-            world.AddComponent<Usable>(entity).Set(newBox, Usable.Type.Box, body);
-            return newBox;
+            box.Items = items;
+            return box;
         }
     }
 }

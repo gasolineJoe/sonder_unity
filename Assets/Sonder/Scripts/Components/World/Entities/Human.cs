@@ -4,37 +4,37 @@ using Sonder.Scripts.Components.Parts.Mind;
 using UnityEngine;
 
 namespace Sonder.Scripts.Components.World.Entities {
-    public class Human {
-        private int _entity;
+    public class Human : BaseEntity {
         public bool InputControlled;
         public Disabable Disabable;
         public WorldPosition WorldPosition;
         public Storage Storage;
         public ActionQueue ActionQueue;
         public Movable Movable;
+        public DrawableSprite renderer;
 
         public static Human New(EcsSonderGameWorld world, Room startRoom, GameObject humanObject) {
-            var entity = world.CreateEntity();
-            var human = world.AddComponent<Human>(entity);
-            human._entity = entity;
-            var body = world.AddComponent<Body>(entity);
+            var human = CreateThis<Human>(world);
+
+            var body = human.AddComponent<Body>(world);
+            human.WorldPosition = human.AddComponent<WorldPosition>(world);
+            human.Movable = human.AddComponent<Movable>(world);
+            human.Disabable = human.AddComponent<Disabable>(world);
+            human.Storage = human.AddComponent<Storage>(world);
+            human.ActionQueue = human.AddComponent<ActionQueue>(world);
+            human.renderer = human.AddComponent<DrawableSprite>(world);
+
             body.init(humanObject);
-            human.WorldPosition = world.AddComponent<WorldPosition>(entity);
             human.WorldPosition.init(body, startRoom);
-            human.Movable = world.AddComponent<Movable>(entity);
             human.Movable.WorldPosition = human.WorldPosition;
-            human.Disabable = world.AddComponent<Disabable>(entity);
-            human.Storage = world.AddComponent<Storage>(entity);
-            human.ActionQueue = world.AddComponent<ActionQueue>(entity);
             human.Disabable.init(humanObject);
-            var renderer = world.AddComponent<DrawableSprite>(entity);
-            renderer.SpriteRenderer = humanObject.GetComponent<SpriteRenderer>();
-            renderer.SetRandomColor();
+            human.renderer.SpriteRenderer = humanObject.GetComponent<SpriteRenderer>();
+            human.renderer.SetRandomColor();
             return human;
         }
 
         public void MakePlayer(EcsSonderGameWorld world) {
-            world.AddComponent<InputControlled>(_entity);
+            world.AddComponent<InputControlled>(Entity);
             InputControlled = true;
             WorldPosition.Room.Disabable.SetActive(true);
             Disabable.SetActive(true);

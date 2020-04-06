@@ -4,6 +4,7 @@ using Sonder.Scripts.Components.Abilities;
 using Sonder.Scripts.Components.Parts.Mind;
 using Sonder.Scripts.Components.World.Entities;
 using Sonder.Scripts.Components.World.Entities.Usables;
+using Sonder.Scripts.Ui;
 using UnityEngine;
 
 namespace Sonder.Scripts.Systems {
@@ -23,6 +24,11 @@ namespace Sonder.Scripts.Systems {
                 switch (usable.UsableType) {
                     case Usable.Type.Box:
                         actionQueue.ActionDone();
+                        if (human.InputControlled && _world.UiMode == UiMode.NONE) {
+                            _world.IsFrozen = true;
+                            _world.UiMode = UiMode.INVENTORY;
+                        }
+
                         break;
                     case Usable.Type.Door:
                         if (!(usable.UsableEntity is Door door)) break;

@@ -2,6 +2,7 @@
 using Sonder.Scripts.Components.Abilities;
 using Sonder.Scripts.Components.Parts.Mind;
 using Sonder.Scripts.Components.World.Entities;
+using Sonder.Scripts.Ui;
 using UnityEngine;
 
 namespace Sonder.Scripts.Systems {
@@ -33,7 +34,19 @@ namespace Sonder.Scripts.Systems {
             }
 
             if (Input.GetKeyDown(KeyCode.Space)) {
+                if (_world.UiMode == UiMode.NONE) {
+                    _world.IsFrozen = true;
+                    _world.SystemUiMode = SystemUiMode.PAUSE;
+                }
+                else if (_world.SystemUiMode == SystemUiMode.PAUSE) {
+                    _world.IsFrozen = false;
+                    _world.SystemUiMode = SystemUiMode.PAUSE;
+                }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Escape)) {
                 _world.IsFrozen = !_world.IsFrozen;
+                _world.SystemUiMode = SystemUiMode.MENU;
             }
         }
     }

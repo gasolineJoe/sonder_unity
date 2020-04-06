@@ -7,13 +7,14 @@ namespace Sonder.Scripts.Systems {
     [EcsInject]
     public class MoveProcessing : Delayed, IEcsRunSystem, IEcsInitSystem {
         EcsFilter<ActionQueue, Movable> _movables = null;
+        EcsSonderGameWorld _world = null;
 
         public void Initialize() {
             Delay = 0.03f;
         }
 
         public void Run() {
-            if (CantUpdate()) return;
+            if (CantUpdate() || _world.IsFrozen) return;
             for (var i = 0; i < _movables.EntitiesCount; i++) {
                 var movable = _movables.Components2[i];
                 var actionQueue = _movables.Components1[i];

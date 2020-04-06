@@ -10,9 +10,10 @@ namespace Sonder.Scripts.Systems {
     [EcsInject]
     public class ObjectUseSystem : Delayed, IEcsRunSystem {
         EcsFilter<Human, ActionQueue> _humanUsers = null;
+        EcsSonderGameWorld _world = null;
 
         public void Run() {
-            if (CantUpdate()) return;
+            if (CantUpdate() || _world.IsFrozen) return;
 
             for (var i = 0; i < _humanUsers.EntitiesCount; i++) {
                 var actionQueue = _humanUsers.Components2[i];
@@ -21,6 +22,7 @@ namespace Sonder.Scripts.Systems {
                 if (!(actionQueue.GetAction().Item2 is Usable usable)) continue;
                 switch (usable.UsableType) {
                     case Usable.Type.Box:
+                        actionQueue.ActionDone();
                         break;
                     case Usable.Type.Door:
                         if (!(usable.UsableEntity is Door door)) break;
@@ -31,6 +33,9 @@ namespace Sonder.Scripts.Systems {
                         human.WorldPosition.Body.Tr.position = newPos;
 
                         TravelToRoom.Do(human, newRoom);
+                        actionQueue.ActionDone();
+                        break;
+                    default:
                         actionQueue.ActionDone();
                         break;
                 }

@@ -9,6 +9,7 @@ namespace Sonder.Scripts.Systems {
     public class UserInputProcessing : IEcsRunSystem {
         EcsFilter<Human, ActionQueue, InputControlled> _controlledEntities = null;
         private readonly Camera _camera = Object.FindObjectOfType<Camera>();
+        EcsSonderGameWorld _world = null;
 
         public void Run() {
             if (Input.GetMouseButtonDown(0)) {
@@ -29,6 +30,10 @@ namespace Sonder.Scripts.Systems {
                     human.ActionQueue.Interrupt();
                     human.ActionQueue.AddWalk(point.x);
                 }
+            }
+
+            if (Input.GetKeyDown(KeyCode.Space)) {
+                _world.IsFrozen = !_world.IsFrozen;
             }
         }
     }

@@ -1,8 +1,8 @@
 ﻿using UnityEngine;
 
 namespace Sonder.Scripts.AssetHandlers {
-    [CreateAssetMenu(fileName = "RoomScriptable.asset", menuName = "Create New Startup Data")]
-    public class SonderStartupData : ScriptableObject {
+    [CreateAssetMenu(fileName = "RoomScriptablee.asset", menuName = "Create New SonderAssetData")]
+    public class SonderAssetData : ScriptableObject {
         public GameObject Hero;
         public GameObject startRoom;
         [Space] public GameObject[] rooms;

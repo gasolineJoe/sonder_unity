@@ -6,13 +6,14 @@ using UnityEngine;
 
 namespace Sonder.Scripts {
     public class GameStartup : MonoBehaviour {
-        public SonderStartupData assets;
+        public SonderAssetData assets;
+        public SonderUiData uiAssets;
 
         EcsSonderGameWorld _world;
         EcsSystems _systems;
 
         void OnEnable() {
-            _world = new EcsSonderGameWorld(assets);
+            _world = new EcsSonderGameWorld(assets, uiAssets);
 #if UNITY_EDITOR
             EcsWorldObserver.Create(_world);
 #endif

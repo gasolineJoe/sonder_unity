@@ -16,9 +16,9 @@ namespace Sonder.Scripts.Systems {
         [Space] private GameObject[] _roomsObjects;
 
         public void Initialize() {
-            _humanObject = _world.StartupData.Hero;
-            _startRoomObject = _world.StartupData.startRoom;
-            _roomsObjects = _world.StartupData.rooms;
+            _humanObject = _world.AssetData.Hero;
+            _startRoomObject = _world.AssetData.startRoom;
+            _roomsObjects = _world.AssetData.rooms;
 
             var newStartRoom = SpawnRoomWithPosition(_startRoomObject, 0, 0);
             var c = 0;

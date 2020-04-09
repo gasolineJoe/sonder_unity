@@ -34,20 +34,26 @@ namespace Sonder.Scripts.Systems {
             }
 
             if (Input.GetKeyDown(KeyCode.Space)) {
-                if (_world.UiMode == UiMode.NONE) {
+                if (_world.SystemUiMode == SystemUiMode.NONE) {
                     _world.IsFrozen = true;
                     _world.SystemUiMode = SystemUiMode.PAUSE;
                 }
                 else if (_world.SystemUiMode == SystemUiMode.PAUSE) {
                     _world.IsFrozen = false;
-                    _world.SystemUiMode = SystemUiMode.PAUSE;
+                    _world.SystemUiMode = SystemUiMode.NONE;
                 }
             }
 
             if (Input.GetKeyDown(KeyCode.Escape)) {
-                _world.IsFrozen = !_world.IsFrozen;
-                _world.SystemUiMode = SystemUiMode.MENU;
-            }
+                if (_world.SystemUiMode == SystemUiMode.NONE) {
+                    _world.IsFrozen = true;
+                    _world.SystemUiMode = SystemUiMode.MENU;
+                }
+                else if (_world.SystemUiMode == SystemUiMode.MENU) {
+                    _world.IsFrozen = false;
+                    _world.SystemUiMode = SystemUiMode.NONE;
+                }
+            } 
         }
     }
 }

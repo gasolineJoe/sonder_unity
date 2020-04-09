@@ -10,6 +10,6 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: fc23b374b1c045ccb206ecf09f4b04b8, type: 3}
-  m_Name: RoomScriptable
+  m_Name: UiAssets
   m_EditorClassIdentifier: 
-  UiText: {fileID: 0}
+  uiText: {fileID: 5049110680299764075, guid: 6fb7ccd28f37538429d2acb0822e008a, type: 3}

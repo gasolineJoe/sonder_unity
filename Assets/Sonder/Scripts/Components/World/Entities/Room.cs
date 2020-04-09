@@ -18,11 +18,10 @@ namespace Sonder.Scripts.Components.World.Entities {
         public static Room New(EcsSonderGameWorld world, GameObject roomObject) {
             var room = CreateThis<Room>(world);
 
-            var disabable = room.AddComponent<Disabable>(world);
+            room.Disabable = room.AddComponent<Disabable>(world);
             room.Body = room.AddComponent<Body>(world);
 
             room.Body.init(roomObject);
-            room.Disabable = disabable;
             room.Disabable.init(roomObject);
             room.Disabable.SetActive(false);
             room.RegisterDoors(world, roomObject);

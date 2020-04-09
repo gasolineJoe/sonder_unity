@@ -16,7 +16,7 @@ namespace Sonder.Scripts.Systems {
         [Space] private GameObject[] _roomsObjects;
 
         public void Initialize() {
-            _humanObject = _world.AssetData.Hero;
+            _humanObject = _world.AssetData.hero;
             _startRoomObject = _world.AssetData.startRoom;
             _roomsObjects = _world.AssetData.rooms;
 

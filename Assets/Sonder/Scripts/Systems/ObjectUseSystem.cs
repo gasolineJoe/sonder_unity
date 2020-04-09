@@ -33,9 +33,10 @@ namespace Sonder.Scripts.Systems {
                     case Usable.Type.Door:
                         if (!(usable.UsableEntity is Door door)) break;
                         var newPos = door.Destination.Usable.Body.Tr.position;
+                        var oldPos = human.WorldPosition.Body.Tr.position;
                         var newRoom = door.Destination.Source;
                         var floorHeight = newRoom.Body.Tr.position.y + newRoom.Floor;
-                        newPos = new Vector3(newPos.x, floorHeight, newPos.z);
+                        newPos = new Vector3(newPos.x, floorHeight, oldPos.z);
                         human.WorldPosition.Body.Tr.position = newPos;
 
                         TravelToRoom.Do(human, newRoom);

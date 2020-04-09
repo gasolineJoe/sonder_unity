@@ -3,17 +3,18 @@
 --- !u!114 &11400000
 MonoBehaviour:
   m_ObjectHideFlags: 0
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 231f2120e97673d43b52163355581d8d, type: 3}
   m_Name: TestRoomSet
   m_EditorClassIdentifier: 
-  Hero: {fileID: 1255930961900636, guid: 9535b7a6974b8914ab10007793da4f29, type: 2}
-  startRoom: {fileID: 1628799104414752, guid: e1b55bf22a17b7d4988d74e6b4b5d021, type: 2}
+  hero: {fileID: 1255930961900636, guid: 9535b7a6974b8914ab10007793da4f29, type: 3}
+  startRoom: {fileID: 1628799104414752, guid: e1b55bf22a17b7d4988d74e6b4b5d021, type: 3}
   rooms:
-  - {fileID: 1370425451123778, guid: d9642463c349767419ee7ba6f65a47f0, type: 2}
-  - {fileID: 1044183128127214, guid: 29240ff712e2d324593f071c10daf1b8, type: 2}
-  - {fileID: 1628799104414752, guid: e1b55bf22a17b7d4988d74e6b4b5d021, type: 2}
+  - {fileID: 1370425451123778, guid: d9642463c349767419ee7ba6f65a47f0, type: 3}
+  - {fileID: 1044183128127214, guid: 29240ff712e2d324593f071c10daf1b8, type: 3}
+  - {fileID: 1628799104414752, guid: e1b55bf22a17b7d4988d74e6b4b5d021, type: 3}

@@ -32,28 +32,6 @@ namespace Sonder.Scripts.Systems {
                     human.ActionQueue.AddWalk(point.x);
                 }
             }
-
-            if (Input.GetKeyDown(KeyCode.Space)) {
-                if (_world.SystemUiMode == SystemUiMode.NONE) {
-                    _world.IsFrozen = true;
-                    _world.SystemUiMode = SystemUiMode.PAUSE;
-                }
-                else if (_world.SystemUiMode == SystemUiMode.PAUSE) {
-                    _world.IsFrozen = false;
-                    _world.SystemUiMode = SystemUiMode.NONE;
-                }
-            }
-
-            if (Input.GetKeyDown(KeyCode.Escape)) {
-                if (_world.SystemUiMode == SystemUiMode.NONE) {
-                    _world.IsFrozen = true;
-                    _world.SystemUiMode = SystemUiMode.MENU;
-                }
-                else if (_world.SystemUiMode == SystemUiMode.MENU) {
-                    _world.IsFrozen = false;
-                    _world.SystemUiMode = SystemUiMode.NONE;
-                }
-            } 
         }
     }
 }

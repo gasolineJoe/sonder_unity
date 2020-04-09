@@ -20,7 +20,7 @@ namespace Sonder.Scripts {
             _systems = new EcsSystems(_world)
                     .Add(new SpawnSystem())
                     .Add(new UiSpawnSystem())
-                    .Add(new UiSystem())
+                    .Add(new UserUiInputProcessing())
                     .Add(new UserInputProcessing())
                     .Add(new MoveProcessing())
                     .Add(new ObjectUseSystem())

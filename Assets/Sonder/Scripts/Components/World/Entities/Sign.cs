@@ -13,8 +13,8 @@ namespace Sonder.Scripts.Components.World.Entities {
             return sign;
         }
 
-        public void SetText(String text) {
-            this.text.text = text;
+        public void SetText(String s) {
+            text.text = s;
         }
     }
 }

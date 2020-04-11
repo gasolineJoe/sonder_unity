@@ -6,7 +6,6 @@ TagManager:
   tags:
   - GameWorld
   - GameLogic
-  - Room
   layers:
   - Default
   - TransparentFX

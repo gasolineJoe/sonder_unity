@@ -13,3 +13,5 @@ MonoBehaviour:
   m_Name: UiAssets
   m_EditorClassIdentifier: 
   uiText: {fileID: 5049110680299764075, guid: 6fb7ccd28f37538429d2acb0822e008a, type: 3}
+  containerSearchUi: {fileID: 3985715299487320214, guid: 5221a9bac30c7a84093fdca367f3c3f5,
+    type: 3}

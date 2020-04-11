@@ -6,14 +6,14 @@ using TMPro;
 using UnityEngine;
 
 namespace Sonder.Scripts.Ui {
-    public class UiComponent : BaseEntity {
+    public class TextMessageUi : BaseEntity {
 
         public Body Body;
         public Disabable Disabable;
         public TextMeshPro text;
         
-        public static UiComponent New(EcsSonderGameWorld world, GameObject uiObject) {
-            var ui = CreateThis<UiComponent>(world);
+        public static TextMessageUi New(EcsSonderGameWorld world, GameObject uiObject) {
+            var ui = CreateThis<TextMessageUi>(world);
             
             ui.Disabable = ui.AddComponent<Disabable>(world);
             ui.Body = ui.AddComponent<Body>(world);

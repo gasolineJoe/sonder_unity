@@ -5,7 +5,7 @@ using Sonder.Scripts.Components.Parts.Mind;
 
 namespace Sonder.Scripts.Systems {
     [EcsInject]
-    public class MoveProcessing : Delayed, IEcsRunSystem, IEcsInitSystem {
+    public class MoveProcessing : BaseDelayedSystem, IEcsRunSystem, IEcsInitSystem {
         EcsFilter<ActionQueue, Movable> _movables = null;
         EcsSonderGameWorld _world = null;
 

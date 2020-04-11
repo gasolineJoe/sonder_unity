@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 namespace Sonder.Scripts.Systems {
-    public class Delayed {
+    public class BaseDelayedSystem {
         protected float Delay = 0.25f;
         private float _nextUpdateTime;
 

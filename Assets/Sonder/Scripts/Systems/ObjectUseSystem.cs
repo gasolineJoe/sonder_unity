@@ -9,7 +9,7 @@ using UnityEngine;
 
 namespace Sonder.Scripts.Systems {
     [EcsInject]
-    public class ObjectUseSystem : Delayed, IEcsRunSystem {
+    public class ObjectUseSystem : BaseDelayedSystem, IEcsRunSystem {
         EcsFilter<Human, ActionQueue> _humanUsers = null;
         EcsSonderGameWorld _world = null;
 
@@ -27,6 +27,9 @@ namespace Sonder.Scripts.Systems {
                         if (human.InputControlled && _world.UiMode == UiMode.NONE) {
                             _world.IsFrozen = true;
                             _world.UiMode = UiMode.INVENTORY;
+                        }
+                        else if (!human.InputControlled) {
+                            //todo human.ai.Search()
                         }
 
                         break;

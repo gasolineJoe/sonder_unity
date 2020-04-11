@@ -7,7 +7,7 @@ using Sonder.Scripts.Components.World.Entities;
 
 namespace Sonder.Scripts.Systems {
     [EcsInject]
-    public class DumbAiSystem : Delayed, IEcsRunSystem, IEcsInitSystem {
+    public class DumbAiSystem : BaseDelayedSystem, IEcsRunSystem, IEcsInitSystem {
         EcsFilter<Human, ActionQueue>.Exclude<InputControlled> _robots = null;
         EcsFilter<Room> _rooms;
         EcsSonderGameWorld _world = null;

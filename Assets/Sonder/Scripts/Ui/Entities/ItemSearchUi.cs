@@ -26,7 +26,7 @@ namespace Sonder.Scripts.Ui {
             
             ui.Disabable = ui.AddComponent<Disabable>(world);
             ui.Body = ui.AddComponent<Body>(world);
-            ui.header = uiObject.GetComponentInChildren<TextMeshPro>();
+            ui.header = uiObject.transform.Find("container_name").gameObject.GetComponent<TextMeshPro>();
             ui.content = uiObject.GetComponentsInChildren<ContentTag>()[0].gameObject;
             ui.listItemGameObject = listItem;
             ui.textList = new List<GameObject>();
@@ -43,7 +43,7 @@ namespace Sonder.Scripts.Ui {
         }
 
         public void AddTextToContent(EcsSonderGameWorld world, String s) {
-            var listItem = ObjectSpawnExtensions.Spawn(listItemGameObject, content);
+            var listItem = ObjectSpawnExtensions.SpawnToParent(listItemGameObject, content);
             var inventoryItem = InventoryItemUi.New(world, listItem);
             inventoryItem.Body.Tr.localPosition = new Vector3(0,-textList.Count,0);
             inventoryItem.SetText(s); 

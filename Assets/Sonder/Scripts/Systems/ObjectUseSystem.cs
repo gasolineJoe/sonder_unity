@@ -14,7 +14,7 @@ namespace Sonder.Scripts.Systems {
         EcsSonderGameWorld _world = null;
 
         public void Run() {
-            if (CantUpdate() || _world.IsFrozen) return;
+            if (CantUpdate() || _world.GameState.IsFrozen) return;
 
             for (var i = 0; i < _humanUsers.EntitiesCount; i++) {
                 var actionQueue = _humanUsers.Components2[i];
@@ -23,10 +23,13 @@ namespace Sonder.Scripts.Systems {
                 if (!(actionQueue.GetAction().Item2 is Usable usable)) continue;
                 switch (usable.UsableType) {
                     case Usable.Type.Box:
+                        if (!(usable.UsableEntity is Box box)) break;
                         actionQueue.ActionDone();
-                        if (human.InputControlled && _world.UiMode == UiMode.NONE) {
-                            _world.IsFrozen = true;
-                            _world.UiMode = UiMode.INVENTORY;
+                        if (human.InputControlled && _world.GameState.UiMode == UiMode.NONE) {
+                            _world.GameState.IsFrozen = true;
+                            _world.GameState.InventoryUiData = 
+                                new InventoryUiData(human, box.Storage);
+                            _world.GameState.UiMode = UiMode.INVENTORY;
                         }
                         else if (!human.InputControlled) {
                             //todo human.ai.Search()

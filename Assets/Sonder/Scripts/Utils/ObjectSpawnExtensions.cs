@@ -6,15 +6,22 @@ namespace Sonder.Scripts.Systems {
         public static GameObject GetWorld() {
             return GameObject.FindWithTag("GameWorld");
         }
-        
-        public static GameObject Spawn(GameObject gameObject) {
-            return Object.Instantiate(gameObject, GetWorld().transform);
+
+        public static GameObject GetUi() {
+            return GameObject.FindWithTag("GameUi");
         }
         
-        public static GameObject Spawn(GameObject gameObject, GameObject parent) {
-            var obj = Object.Instantiate(gameObject, GetWorld().transform);
-            obj.transform.parent = parent.transform;
+        public static GameObject SpawnToParent(GameObject gameObject, GameObject parent) {
+            var obj = Object.Instantiate(gameObject, parent.transform);
             return obj;
+        }
+        
+        public static GameObject SpawnWorld(GameObject gameObject) {
+            return SpawnToParent(gameObject, GetWorld());
+        }
+        
+        public static GameObject SpawnUi(GameObject gameObject) {
+            return SpawnToParent(gameObject, GetUi());
         }
 
         public static void Despawn(GameObject gameObject) {

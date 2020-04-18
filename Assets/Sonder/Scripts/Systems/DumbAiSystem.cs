@@ -17,7 +17,7 @@ namespace Sonder.Scripts.Systems {
         }
 
         public void Run() {
-            if (CantUpdate() || _world.IsFrozen) return;
+            if (CantUpdate() || _world.GameState.IsFrozen) return;
             var random = new Random();
             for (var i = 0; i < _robots.EntitiesCount; i++) {
                 var human = _robots.Components1[i];

@@ -14,7 +14,7 @@ namespace Sonder.Scripts.Systems {
         }
 
         public void Run() {
-            if (CantUpdate() || _world.IsFrozen) return;
+            if (CantUpdate() || _world.GameState.IsFrozen) return;
             for (var i = 0; i < _movables.EntitiesCount; i++) {
                 var movable = _movables.Components2[i];
                 var actionQueue = _movables.Components1[i];

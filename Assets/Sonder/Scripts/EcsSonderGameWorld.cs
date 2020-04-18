@@ -6,13 +6,12 @@ namespace Sonder.Scripts {
     public class EcsSonderGameWorld : EcsWorld {
         public readonly SonderAssetData AssetData;
         public readonly SonderUiData UiData;
-        public bool IsFrozen = false;
-        public UiMode UiMode = UiMode.NONE;
-        public SystemUiMode SystemUiMode = SystemUiMode.NONE;
+        public readonly GameState GameState;
 
         public EcsSonderGameWorld(SonderAssetData data, SonderUiData ui) {
             AssetData = data;
             UiData = ui;
+            GameState = new GameState();
         }
     }
 }

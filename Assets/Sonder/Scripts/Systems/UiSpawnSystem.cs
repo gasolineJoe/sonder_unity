@@ -9,9 +9,9 @@ namespace Sonder.Scripts.Systems {
         private GameObject _ui;
 
         public void Initialize() {
-            var newUiObject = ObjectSpawnExtensions.Spawn(_world.UiData.uiText);
+            var newUiObject = ObjectSpawnExtensions.SpawnUi(_world.UiData.uiText);
             TextMessageUi.New(_world, newUiObject);
-            var searchUiObject = ObjectSpawnExtensions.Spawn(_world.UiData.containerSearchUi);
+            var searchUiObject = ObjectSpawnExtensions.SpawnUi(_world.UiData.containerSearchUi);
             ItemSearchUi.New(_world, searchUiObject, _world.UiData.inventoryItemUi);
         }
 

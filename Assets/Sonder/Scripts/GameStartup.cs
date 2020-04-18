@@ -24,6 +24,7 @@ namespace Sonder.Scripts {
                     .Add(new UserInputProcessing())
                     .Add(new MoveProcessing())
                     .Add(new ObjectUseSystem())
+                    .Add(new SearchUiSystem())
                     .Add(new DumbAiSystem())
                 ;
             _systems.Initialize();

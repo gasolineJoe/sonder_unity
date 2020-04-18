@@ -30,6 +30,7 @@ namespace Sonder.Scripts.Components.World.Entities {
             human.Disabable.init(humanObject);
             human.renderer.SpriteRenderer = humanObject.GetComponent<SpriteRenderer>();
             human.renderer.SetRandomColor();
+            human.Storage.name = "pockets";
             return human;
         }
 

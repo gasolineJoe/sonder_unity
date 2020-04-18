@@ -36,7 +36,7 @@ namespace Sonder.Scripts.Systems {
             }
 
             for (var i = 0; i < 2; i++) {
-                var newHumanObject = ObjectSpawnExtensions.Spawn(_humanObject);
+                var newHumanObject = ObjectSpawnExtensions.SpawnWorld(_humanObject);
                 var human = Human.New(_world, newStartRoom, newHumanObject);
                 TravelToRoom.Do(human, newStartRoom);
                 human.WorldPosition.Body.Tr.position = new Vector3(newHumanObject.transform.position.x,
@@ -51,7 +51,7 @@ namespace Sonder.Scripts.Systems {
         }
 
         private Room SpawnRoomWithPosition(GameObject room, float x, float y) {
-            var roomObject = ObjectSpawnExtensions.Spawn(room);
+            var roomObject = ObjectSpawnExtensions.SpawnWorld(room);
             roomObject.name = "room" + x / 20;
             var newRoom = Room.New(_world, roomObject);
             newRoom.Body.Tr.position = new Vector3(x, y, 0);

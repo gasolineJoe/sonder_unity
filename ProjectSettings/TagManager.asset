@@ -6,6 +6,7 @@ TagManager:
   tags:
   - GameWorld
   - GameLogic
+  - GameUi
   layers:
   - Default
   - TransparentFX
